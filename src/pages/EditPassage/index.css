@@ -1,0 +1,12 @@
+/* byteMd编辑器样式 */
+.bytemd {
+  color: #13c2c2;
+  height: calc(200vh - 250px);
+  font-family: cursive;
+}
+
+/* 设置mdEditorRT编辑器toolbar的图标大小 */
+svg.md-editor-icon {
+  width: 27px;
+  height: 27px;
+}

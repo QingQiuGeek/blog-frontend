@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* .outer{
+    display:flex
+}
+
+.left{
+    flex:7
+}
+.right-outer {
+  border: solid red;
+  flex: 3;
+  margin-left: 30px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.right-inner{
+    margin:25px 0;
+    padding:20px;
+    background-color: white;
+} */
+
+/* 主页右侧的响应式 */
+@media (max-width: 768px) {
+  .right-outer {
+    display: none;
+  }
+  .left-outer {
+    width: auto;
+  }
+}
+
+/* 主页文章列表的响应式 */
+@media (min-width: 768px) {
+  .content-div {
+    flex-direction: row !important; /* 在宽屏幕下，使用横向排列 */
+    justify-content: space-between; /* 保持文本和图像之间的空间 */
+    align-items: flex-start; /* 上对齐 */
+  }
+
+  .content-p {
+    /* margin-left: 10px; */
+
+    /* flex: 1; 文本占据剩余空间 */
+    margin-right: 20px; /* 为文本和图像之间添加右边距 */
+  }
+}

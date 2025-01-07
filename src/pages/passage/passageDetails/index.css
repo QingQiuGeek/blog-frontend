@@ -1,0 +1,10 @@
+/* styles.css */
+
+/* 主页右侧的响应式 */
+@media (max-width: 768px) {
+  .right-outer {
+    /* display: none; */
+    visibility: hidden;
+    /* width: 10px; */
+  }
+}
