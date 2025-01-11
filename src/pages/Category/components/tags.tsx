@@ -40,7 +40,7 @@ const Tags = () => {
       <ProCard
         hoverable
         bordered
-        style={{ border: '1px solid #13C2C2' }}
+        style={{ width: '100%', border: '1px solid #13C2C2' }}
         loading={loading}
       >
         <Flex gap="15px 5px" wrap align="center">

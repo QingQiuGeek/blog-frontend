@@ -1,3 +1,3 @@
-export const SAVE = 0;
-export const PUBLISH = 2;
-export const TIME_PUBLISH = 4;
+export const SAVE = 'SAVE';
+export const PUBLISH = 'PUBLISH';
+export const TIME_PUBLISH = 'TIME_PUBLISH';

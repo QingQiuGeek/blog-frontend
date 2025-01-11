@@ -82,6 +82,21 @@ export async function getHomePassageListUsingPost(
   );
 }
 
+/** nowPublish POST /api/passage/nowPublish */
+export async function nowPublishUsingPost(
+  body: API.ParentPassageDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/passage/nowPublish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** getOtherPassagesByUserId GET /api/passage/otherPassages/${param0} */
 export async function getOtherPassagesByUserIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -116,8 +131,8 @@ export async function getPassageInfoUsingGet(
   );
 }
 
-/** addPassage POST /api/passage/save */
-export async function addPassageUsingPost(
+/** savePassage POST /api/passage/save */
+export async function savePassageUsingPost(
   body: API.ParentPassageDTO,
   options?: { [key: string]: any },
 ) {
@@ -176,6 +191,21 @@ export async function thumbPassageUsingPut(
   return request<API.BaseResponseBoolean_>(`/api/passage/thumb/${param0}`, {
     method: 'PUT',
     params: { ...queryParams },
+    ...(options || {}),
+  });
+}
+
+/** timePublish POST /api/passage/timePublish */
+export async function timePublishUsingPost(
+  body: API.ParentPassageDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/passage/timePublish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }

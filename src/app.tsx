@@ -10,12 +10,6 @@ import Login from './components/Login/login';
 import { DEFAULT_USER } from './constants/DefaultUser';
 import { LOGO } from './constants/URLResources';
 import { decrypt } from './utils/utils';
-// export async function getInitialState() {
-//   const initialData = await getLoginUserUsingGet();
-//   if (initialData) {
-//     return initialData;
-//   } else return DEFAULT_USER;
-// }
 
 const Layout = () => {
   const [open, setOpen] = useState(false);
@@ -36,7 +30,6 @@ const Layout = () => {
 
   // const { initialState, setInitialState } = useModel('@@initialState');
 
-  //TODO dva的state实在用不了，就直接从sessionStorage中拿
   // const loginUser = useSelector((state: any) => state.loginUser);
   // setInitialState(DEFAULT_USER);
   const loginUserEncrypt = localStorage.getItem('loginUser');
@@ -82,7 +75,7 @@ const Layout = () => {
     layout: 'top',
     splitMenus: true,
     fixedHeader: true,
-    title: '无问青秋',
+    title: '青秋博客',
     logo: LOGO,
     appList: appList,
     // 默认布局调整

@@ -152,8 +152,13 @@ const UserManage = () => {
         return defaultRender(_);
       },
       render: (_, record) => (
-        <Flex>
-          {record.interestTag.map((tag) => (
+        <Flex
+          style={{
+            overflowX: 'auto',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {record.interestTag?.map((tag) => (
             <Tag color={'#13c2c2'} key={tag}>
               {tag}
             </Tag>

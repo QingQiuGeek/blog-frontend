@@ -161,7 +161,7 @@ export default {
       // 清除 localStorage 中存储的 token 和过期时间
       localStorage.removeItem('loginUser');
       localStorage.removeItem('authorization');
-      window.location.reload();
+      // window.location.reload();
       return {
         ...state,
         loginUser: DEFAULT_USER,

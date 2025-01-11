@@ -1,10 +1,7 @@
 import { ProChat } from '@ant-design/pro-chat';
 import { ProCard } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
 
 export default () => {
-  const { canAdmin, canUser } = useAccess();
-
   // const { initialState, loading, error, refresh, setInitialState } =
   //   useModel('@@initialState');
   // console.log('initialState:' + initialState);

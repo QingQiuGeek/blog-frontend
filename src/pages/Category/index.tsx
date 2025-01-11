@@ -5,7 +5,7 @@ import { Card, Divider, Input, Typography, message } from 'antd';
 import Category from './components/category';
 import Tags from './components/tags';
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
@@ -23,7 +23,6 @@ export default () => {
   return (
     <Card>
       <Search
-        style={{ width: '700px' }}
         placeholder="input search text"
         onSearch={onSearch}
         enterButton

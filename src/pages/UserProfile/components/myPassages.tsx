@@ -64,13 +64,13 @@ const MyPassages = () => {
   // const loginUser: API.LoginUserVO = useSelector(
   //   (state: any) => state.loginUser,
   // );
-  useEffect(() => {
-    if (localStorage.getItem('loginUser')) {
-      //获取我的文章列表
-      fetchMyPassages();
-      setLoading(false);
-    }
-  }, []); //监控空列表
+  // useEffect(() => {
+  //   if (localStorage.getItem('loginUser')) {
+  //     //获取我的文章列表
+  //     fetchMyPassages();
+  //     setLoading(false);
+  //   }
+  // }, []); //监控空列表
 
   // console.log('myPassage：' + stringify(passages));
   // setPassageNum(passages.length);
@@ -217,7 +217,6 @@ const MyPassages = () => {
                 objectFit: 'contain',
                 width: '140px',
               }}
-              alt="logo"
               src={item.thumbnail}
             />
           }

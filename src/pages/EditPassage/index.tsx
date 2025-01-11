@@ -9,11 +9,13 @@ import {
   Button,
   Cascader,
   CascaderProps,
+  DatePicker,
   DatePickerProps,
   Dropdown,
   FloatButton,
   Input,
   Menu,
+  Modal,
   Upload,
   UploadFile,
   message,
@@ -32,11 +34,12 @@ import dayjs from 'dayjs';
 import MarkExtension from 'markdown-it-mark';
 import { useEffect, useState } from 'react';
 
-import { PUBLISH, SAVE, TIME_PUBLISH } from '@/constants/OperationPassageType';
 import { getCategoriesAndTagsUsingGet } from '@/services/blog/categoryController';
 import {
-  addPassageUsingPost,
   getEditPassageUsingGet,
+  nowPublishUsingPost,
+  savePassageUsingPost,
+  timePublishUsingPost,
 } from '@/services/blog/passageController';
 import { useNavigate, useParams } from '@umijs/max';
 import { Emoji, ExportPDF, Mark, OriginalImg } from '@vavt/rt-extension';
@@ -69,7 +72,7 @@ export default () => {
   const [title, setTitle] = useState<string>('');
   const [text, setText] = useState('');
   const [summary, setSummary] = useState<string>('');
-  const [passageId, setPassageId] = useState<string>();
+  // const [passageId, setPassageId] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string>();
   //编辑主题
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -99,7 +102,7 @@ export default () => {
 
   useEffect(() => {
     loadEditPassage(params.passageId);
-    setPassageId(params.passageId);
+    // setPassageId(params.passageId);
   }, []);
   const handleThemeChange = (newTheme: any) => {
     setTheme(newTheme);
@@ -288,20 +291,19 @@ export default () => {
     // console.log(3);
 
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await savePassageUsingPost({
         summary: summary,
         title: title,
         content: text,
         tagIdList: selectedTags.map((subArray) => subArray[1]),
         thumbnail: imgUrl,
-        passageId: passageId,
-        type: SAVE,
+        passageId: params.passageId,
       });
       if (res) {
         message.success('文章保存成功');
         // console.log(stringify(res));
-        setPassageId(res);
-        sessionStorage.setItem('editPid', res as string);
+        // setPassageId(res);
+        // sessionStorage.setItem('editPid', res as string);
       } else {
         message.error('文章保存失败');
       }
@@ -315,19 +317,18 @@ export default () => {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await nowPublishUsingPost({
         summary: summary,
         title: title,
         content: text,
         tagIdList: selectedTags.map((subArray) => subArray[1]),
         thumbnail: imgUrl,
-        passageId: passageId,
-        type: PUBLISH,
+        passageId: params.passageId,
       });
       if (res) {
         message.success('文章发布成功');
         // message.info(res);
-        setPassageId(res);
+        // setPassageId(res);
         setTimeout(() => {
           navigate('/userProfile', { replace: true });
         }, 1000);
@@ -348,22 +349,20 @@ export default () => {
     if (check()) {
       return;
     }
-
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await timePublishUsingPost({
         summary: summary,
         title: title,
         content: text,
-        tagIdList: selectedTags,
+        tagIdList: selectedTags.map((subArray) => subArray[1]),
         thumbnail: imgUrl,
-        passageId: passageId,
+        passageId: params.passageId,
         publishTime: publishTime,
-        type: TIME_PUBLISH,
       });
       if (res) {
         message.success('文章定时发布成功');
         // message.info(res);
-        setPassageId(res);
+        // setPassageId(res);
         setTimeout(() => {
           navigate('/userProfile', { replace: true });
         }, 1000);
@@ -530,7 +529,7 @@ export default () => {
         layout="horizontal"
         submitter={{
           render: () => {
-            if (status === 0) {
+            if (status === 0 || status === 3) {
               // status 为 0 时显示所有按钮
               return [
                 <Button
@@ -561,7 +560,7 @@ export default () => {
                   立即发布
                 </Button>,
               ];
-            } else if (status === 2) {
+            } else if (status === 1 || status === 2) {
               // status 为 2 时只显示 "保存博客" 按钮
               return [
                 <Button
@@ -650,6 +649,38 @@ export default () => {
         </div>
       </ProForm>
       <FloatButton.BackTop />
+      <Modal
+        key="timeModal"
+        title="选择定时发布时间"
+        open={isModalOpen}
+        onOk={timePublish}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <div
+          style={{
+            display: 'flex', // 使用 flex 布局
+            justifyContent: 'center', // 水平居中
+            alignItems: 'center', // 垂直居中
+            height: '100%',
+          }}
+        >
+          <DatePicker
+            width={250}
+            style={{
+              fontWeight: 'bolder',
+              fontSize: '20px',
+            }}
+            size="large"
+            maxDate={dayjs().add(1, 'month')}
+            minDate={dayjs()}
+            defaultValue={dayjs()}
+            showTime
+            locale={zhLocale}
+            onChange={onChange}
+          />
+        </div>
+      </Modal>
+      ,
     </ProCard>
   );
 };

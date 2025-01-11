@@ -2,7 +2,6 @@ import { ProCard } from '@ant-design/pro-components';
 import { history, useLocation } from '@umijs/max';
 import type { TabsProps } from 'antd';
 import { Tabs } from 'antd';
-import { useEffect } from 'react';
 import FansList from './components/fansList';
 import FollowsList from './components/followsList';
 import MyCollections from './components/myCollections';
@@ -101,16 +100,12 @@ export default () => {
   // console.log('follows:' + stringify(follows));
   const location = useLocation();
   // 从 URL 中获取当前 tab 信息
-  const currentTab = location.pathname.split('/')[2] || 'myPassages'; // 默认选中 'myarticles'
+  const currentTab = location.pathname.split('/')[2] || 'myPassages'; // 默认选中 'MyPassages'
 
   const handleTabChange = (key: string) => {
     // 路由变化，更新 URL
     history.push(`/userProfile/${key}`);
   };
-
-  useEffect(() => {
-    // history.push(`/userProfile/${location.pathname.split('/')[2]}`);
-  }, [location]);
 
   const tagItems: TabsProps['items'] = [
     {
@@ -145,17 +140,6 @@ export default () => {
       children: <MyMessages></MyMessages>,
     },
   ];
-  // const { canUser, canAdmin } = useAccess();
-  // if (!canUser && !canAdmin) {
-  //   message.info({
-  //     content: '当前是游客身份，请登录或注册',
-  //     icon: <MehTwoTone />,
-  //     style: {
-  //       fontSize: '15px',
-  //       marginTop: '8vh',
-  //     },
-  //   });
-  // }
   return (
     <ProCard split="vertical">
       <ProCard colSpan="30%">

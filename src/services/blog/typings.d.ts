@@ -496,11 +496,11 @@ declare namespace API {
     content?: string;
     passageId?: string;
     publishTime?: number;
+    status?: number;
     summary?: string;
     tagIdList?: number[];
     thumbnail?: string;
     title?: string;
-    type?: number;
   };
 
   type PassageContentVO = {

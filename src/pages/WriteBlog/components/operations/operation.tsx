@@ -1,5 +1,8 @@
-import { PUBLISH, SAVE, TIME_PUBLISH } from '@/constants/OperationPassageType';
-import { addPassageUsingPost } from '@/services/blog/passageController';
+import {
+  nowPublishUsingPost,
+  savePassageUsingPost,
+  timePublishUsingPost,
+} from '@/services/blog/passageController';
 import {
   ProCard,
   ProForm,
@@ -22,7 +25,8 @@ interface TitleProps {
 const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
   const [isDisable, setIsDisable] = useState<boolean>(false);
   useEffect(() => {
-    if (!localStorage.getItem('loginUser')) {
+    const loginUser = localStorage.getItem('loginUser');
+    if (!loginUser) {
       setIsDisable(true);
     }
   }, []);
@@ -78,14 +82,13 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await savePassageUsingPost({
         summary: summary,
         title: getTitle,
         content: getContent,
         tagIdList: selectedTags,
         thumbnail: imgUrl,
         passageId: passageId,
-        type: SAVE,
       });
       if (res) {
         message.success('文章保存成功');
@@ -104,14 +107,13 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await nowPublishUsingPost({
         summary: summary,
         title: getTitle,
         content: getContent,
         tagIdList: selectedTags,
         thumbnail: imgUrl,
         passageId: passageId,
-        type: PUBLISH,
       });
       if (res) {
         message.success('文章发布成功');
@@ -138,7 +140,7 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
     }
 
     try {
-      const res: API.BaseResponseString_ = await addPassageUsingPost({
+      const res: API.BaseResponseString_ = await timePublishUsingPost({
         summary: summary,
         title: getTitle,
         content: getContent,
@@ -146,7 +148,6 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
         thumbnail: imgUrl,
         passageId: passageId,
         publishTime: publishTime,
-        type: TIME_PUBLISH,
       });
       if (res) {
         message.success('文章定时发布成功');

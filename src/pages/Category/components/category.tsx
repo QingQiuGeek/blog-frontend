@@ -1,13 +1,12 @@
 import { getCategoriesUsingPost } from '@/services/blog/categoryController';
 import { history, useLocation } from '@umijs/max';
-import { Card, List, Typography, message } from 'antd';
+import { Card, List, message } from 'antd';
 import { useEffect, useState } from 'react';
 
 const data = [];
 for (let i = 1; i <= 15; i++) {
   data.push({ title: `Title ${i}`, tags: `Tags${i}` });
 }
-const { Title, Paragraph } = Typography;
 
 const Category = () => {
   const [loading, setLoading] = useState<boolean>(true);
