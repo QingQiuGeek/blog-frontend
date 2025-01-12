@@ -30,7 +30,7 @@ const Comments = () => {
 
   useEffect(() => {
     loadMoreData();
-  }, []);
+  }, [passageId]);
 
   //控制删除提示框的显隐
   const [popoverVisible, setPopoverVisible] = useState(null);

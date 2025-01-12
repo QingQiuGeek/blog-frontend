@@ -75,6 +75,7 @@ const PassageDetails = () => {
           pid: passageId,
         });
       setPassageContent(content);
+      // dispatch({ type: 'comment/reducerCleanComments' });
     } catch (error) {
       message.error('文章内容获取失败' + error);
     }
@@ -84,7 +85,7 @@ const PassageDetails = () => {
     fetchPassageInfo();
     fetchPassageContent();
     setLoading(false);
-  }, [passageId, authorId]); //这里监控空数组[]，每次进入该页面都渲染一次，而不是只渲染第一次
+  }, [passageId, authorId]);
 
   const doCollect = debounce(async () => {
     if (!localStorage.getItem('loginUser')) {

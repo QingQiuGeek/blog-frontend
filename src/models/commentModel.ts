@@ -17,10 +17,26 @@ export default {
   state: {
     records: [], // 记录数据，初始化为空数组
     total: 0, // 总数，初始化为 0
+    currentPassageId: null,
   },
   effects: {
     //从后端请求评论
-    *effectGetComments({ payload }: any, { call, put }) {
+    *effectGetComments({ payload }: any, { call, put, select }) {
+      try {
+        const currentPassageId: string = yield select(
+          (state) => state.comment.currentPassageId,
+        );
+        console.log('currentPassageId:  ' + currentPassageId);
+        console.log('payload:  ' + payload.passageId);
+
+        if (currentPassageId !== payload.passageId) {
+          yield put({
+            type: 'reducerCleanComments',
+          });
+        }
+      } catch (error) {
+        message.error('重置评论列表失败');
+      }
       try {
         // console.log(payload);
         const res: API.BaseResponsePageListCommentVO_ = yield call(
@@ -33,10 +49,10 @@ export default {
           const total = res.total;
           // console.log('model-records：' + stringify(records));
           // console.log('model-total：' + total);
-
+          const passageId = payload.passageId;
           yield put({
             type: 'reducerSetComments',
-            payload: { records, total },
+            payload: { records, total, passageId },
           });
         } else {
           message.error('评论获取失败');
@@ -140,6 +156,7 @@ export default {
         //注意新加载的评论不要覆盖老的评论，而是追加
         total: payload.total,
         records: [...state.records, ...payload.records],
+        currentPassageId: payload.passageId,
       };
       // return Array.isArray(payload) ? payload : state; // 仅当 payload 是数组时才替换
     },
@@ -166,6 +183,15 @@ export default {
         total: state.total + 1,
         records: [commentWithUserInfo, ...state.records],
       };
+    },
+    //每次加载新文章时要置空commentModel，防止a文章显示b文章的评论
+    reducerCleanComments(state: any, { payload }: any) {
+      // console.log(stringify(payload));
+      return {
+        total: 0,
+        records: [],
+      };
+      // return Array.isArray(payload) ? payload : state; // 仅当 payload 是数组时才替换
     },
   },
 };
