@@ -18,6 +18,13 @@ export default defineConfig({
       // pathRewrite: { '^/api': '' },
       secure: true,
     },
+    '/ai': {
+      // 换成https，编辑器上传图片功能就报错
+      target: 'https://spark-api-open.xf-yun.com',
+      changeOrigin: true,
+      pathRewrite: { '^/ai': '' },
+      secure: false,
+    },
   },
   model: {},
   initialState: {},
