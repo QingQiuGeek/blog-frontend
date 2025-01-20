@@ -194,6 +194,15 @@ export default () => {
                   ></TimeLineEvents>
                 ),
               },
+              {
+                label: '2025-01-20',
+                children: (
+                  <TimeLineEvents
+                    title={'引入星火大模型'}
+                    content={'引入星火大模型'}
+                  ></TimeLineEvents>
+                ),
+              },
             ]}
           />
         </ProCard>

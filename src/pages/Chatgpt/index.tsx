@@ -34,76 +34,92 @@ export default () => {
           const reader = response.body.getReader();
           const decoder = new TextDecoder('utf-8');
           const encoder = new TextEncoder();
-
+          let jsonBuffer = '';
           const readableStream = new ReadableStream({
             async start(controller) {
-              let accumulatedContent = ''; // 用来累积所有内容
-              let chunkBuffer = ''; // 用来缓存不完整的消息
+              // let accumulatedContent = ''; // 用来累积所有内容
+              // let chunkBuffer = ''; // 用来缓存不完整的消息
 
               function push() {
                 reader
                   .read()
                   .then(({ done, value }) => {
                     if (done) {
-                      if (chunkBuffer.trim()) {
-                        try {
-                          const message = chunkBuffer
-                            .trim()
-                            .replace(/^data: /, '');
-                          if (message !== '[DONE]') {
-                            const parsed = JSON.parse(message);
-                            // console.log(parsed);
-                            accumulatedContent +=
-                              parsed.choices[0].delta.content || '';
-                            controller.enqueue(
-                              encoder.encode(accumulatedContent),
-                            );
-                          }
-                        } catch (err) {
-                          console.error('Error parsing final message', err);
-                        }
-                      }
                       controller.close();
+                      // console.log('数据流解析-------- 连接关闭');
                       return;
                     }
-
-                    // 将当前读取的部分数据解码为字符串
+                    // 1、流返回的块数据
                     const chunk = decoder.decode(value, { stream: true });
-
-                    // 将当前 chunk 与缓存中的部分内容合并
-                    chunkBuffer += chunk;
-                    // console.log('chunk' + chunk);
-
-                    // console.log('chunkBuffer' + chunkBuffer);
-
-                    // 检查是否有完整的消息
-                    const splitMessages = chunkBuffer.split('\n');
-                    for (let i = 0; i < splitMessages.length - 1; i++) {
-                      const message = splitMessages[i]
-                        .replace(/^data: /, '')
-                        .trim();
-                      if (message === '[DONE]') {
-                        controller.close();
-                        return;
-                      }
-                      // const str = '{"code":0,"message":"Success","sid":"cha000b1c86@dx194824b9e48b8f3532","id":"cha000b1c86@dx194824b9e48b8f3532","created":1737352782,"choices":[{"delta":{"role":"assistant","content":"需求。"},"index":0}]}';
-                      // const p = JSON.parse(str);
+                    // console.log('数据流解析-------- 当前返回块', chunk);
+                    // 2、更新到缓存区
+                    jsonBuffer += chunk;
+                    // 3、尝试分片解析json
+                    let boundaryIndex = 0;
+                    // 当前片内容
+                    let result = '';
+                    while ((boundaryIndex = jsonBuffer.indexOf('\n')) >= 0) {
+                      // 3.1 数据块切片
+                      const jsonString = jsonBuffer.slice(0, boundaryIndex);
+                      // 3.2 更新缓存区
+                      jsonBuffer = jsonBuffer.slice(boundaryIndex + 2);
+                      // console.log(
+                      //   '数据流解析-------- 缓存区剩余数据',
+                      //   jsonBuffer,
+                      // );
                       try {
-                        console.log(message);
-                        const parsed = JSON.parse(message);
-                        accumulatedContent +=
-                          parsed.choices[0].delta.content || '';
-                        controller.enqueue(encoder.encode(accumulatedContent));
-                      } catch (err) {
-                        console.error('Error parsing message:', err);
+                        const jsonStr = jsonString.replace('data:', '');
+                        // console.log(
+                        //   '数据流解析-------- 将要解析的json字符串',
+                        //   jsonStr,
+                        // );
+                        if (jsonStr === '[DONE]') {
+                          return;
+                        }
+                        const jsonObject = JSON.parse(jsonStr); // 解析 JSON
+                        // console.log(
+                        //   '数据流解析-------- json字符串转换为对象',
+                        //   jsonObject,
+                        // );
+
+                        // 处理可识别内容 - 伪代码，根据实际对象处理
+                        const content = jsonObject.choices[0].delta.content;
+                        controller.enqueue(encoder.encode(content));
+                        // 解析结束 - 我们业务是根据此字段标识，根据实际情况调整
+                        if (jsonObject.choices[1].index === 0) {
+                          // console.log('数据流解析-------- 解析数据流结束');
+                          // 清空缓存区
+                          jsonBuffer = '';
+                          break;
+                        }
+                      } catch (error) {
+                        console.log('数据流解析-------- json解析出错', error);
                       }
                     }
-                    // 保留最后一部分不完整的消息
-                    chunkBuffer = splitMessages[splitMessages.length - 1];
-                    push(); // 继续读取下一部分
+
+                    // 处理缓冲区中剩余的数据（这里冗余设计，可以考虑去掉，只是为了观察每块数据的不完整json串）
+                    if (jsonBuffer) {
+                      console.log(
+                        '数据流解析-------- 缓存区剩余内容',
+                        jsonBuffer,
+                      );
+                      try {
+                        const jsonObject = JSON.parse(jsonBuffer);
+                        console.log('缓存区剩余内容：解析成功', jsonObject);
+                      } catch (error) {
+                        console.log(
+                          '数据流解析-------- 处理缓存区剩余内容出错，可能需要等待下一块流数据，缓存区剩余数据',
+                          jsonBuffer,
+                        );
+                      }
+                    }
+                    push();
                   })
                   .catch((err) => {
-                    console.error('读取流中的数据时发生错误', err);
+                    console.log(
+                      '数据流解析-------- 读取流中的数据时发生错误',
+                      err,
+                    );
                     controller.error(err);
                   });
               }
