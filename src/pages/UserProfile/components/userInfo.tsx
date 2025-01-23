@@ -595,7 +595,7 @@ const UserInfo = () => {
               />
             </ProCard>
 
-            <ProCard style={{ right: '30px', bottom: '50px' }}>
+            <ProCard style={{ right: '28px', bottom: '50px' }}>
               <Flex gap="8px 0px" wrap>
                 {(loginUser
                   ? loginUser.interestTag

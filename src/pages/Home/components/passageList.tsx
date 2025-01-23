@@ -10,14 +10,7 @@ import {
   StarOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import {
-  Link,
-  connect,
-  history,
-  useDispatch,
-  useLocation,
-  useSearchParams,
-} from '@umijs/max';
+import { Link, connect, history, useDispatch, useLocation } from '@umijs/max';
 import { Avatar, Flex, List, Space, Tag, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import PassageSummary from './passageSummary';
@@ -32,7 +25,6 @@ const PassageList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const [pageSize, setPageSize] = useState<number>(5); // 默认每页5条
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   //浏览器点击回退，url变化，文章列表不变化，分页页码也不变化
   //解决，在useEffect中监控url的page字段，url变化后更新setCurrentPage
@@ -57,6 +49,7 @@ const PassageList = () => {
         });
       setHomePassageList(res.records.flat()); // 将二维数组转换为一维数组
       setTotal(res.total); //总记录数
+      setLoading(false);
       // console.log('res：' + stringify(res));
     } catch (e) {
       message.error('获取首页文章列表失败：' + e);
@@ -66,7 +59,6 @@ const PassageList = () => {
   //页码或每页条数变化时重新加载数据
   useEffect(() => {
     getHomePassageList();
-    setLoading(false);
   }, [currentPage, pageSize]);
 
   const data = homePassageList.map((passage: API.PassageInfoVO) => ({

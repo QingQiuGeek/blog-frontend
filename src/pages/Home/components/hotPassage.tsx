@@ -9,12 +9,15 @@ const { Paragraph } = Typography;
 const HotPassage = () => {
   const [topPassages, setTopPassages] = useState<API.PassageTitleVO[]>([]);
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   const getTopPassages = async () => {
     try {
       const res: API.BaseResponseListPassageTitleVO_ =
         await getTopPassagesUsingGet();
       if (res) {
         setTopPassages(res);
+        setLoading(false);
       } else {
         message.error('获取爆款文章失败');
       }
@@ -39,6 +42,7 @@ const HotPassage = () => {
     <>
       <Badge.Ribbon text="Hot" color="red">
         <ProCard
+          loading={loading}
           title="文章推荐"
           hoverable
           bordered
