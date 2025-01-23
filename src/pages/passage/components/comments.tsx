@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Comments = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   // const [comment, setComment] = useState<API.CommentVO[]>([]);
   const { authorId, passageId } = useParams();
   let { records, total } = useSelector((state) => ({
@@ -25,11 +26,12 @@ const Comments = () => {
         records.length > 0 ? records[records.length - 1].commentId : null,
     };
     dispatch({ type: 'comment/effectGetComments', payload: params });
-    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     loadMoreData();
+    setLoading(false);
   }, [passageId]);
 
   //控制删除提示框的显隐

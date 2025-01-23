@@ -1,3 +1,4 @@
+import HotPassage from '@/pages/Home/components/hotPassage';
 import { getOtherPassagesByUserIdUsingGet } from '@/services/blog/passageController';
 import { ProCard } from '@ant-design/pro-components';
 import { history, useDispatch, useParams } from '@umijs/max';
@@ -41,32 +42,36 @@ const OhterPassages = ({ setPassageNum }: any) => {
   };
   return (
     <>
-      <ProCard
-        style={{
-          border: '1px solid  #13C2C2',
-        }}
-        hoverable
-        title="作者的其他文章"
-      >
-        {authorPassages?.map((passage: API.PassageTitleVO, index) => {
-          //作者的其他文章列表中不包含当前在看的文章
-          if (passage.passageId === passageId) {
-            return null; // 返回 null 表示不渲染该项
-          }
-          // console.log(passage); // 打印每一篇文章的信息
-          return (
-            <Paragraph key={index}>
-              <ul style={{ fontSize: '15px', fontWeight: 'bold' }}>
-                <li>
-                  <a onClick={() => otherPassage(authorId, passage.passageId)}>
-                    {passage.title}
-                  </a>
-                </li>
-              </ul>
-            </Paragraph>
-          );
-        })}
-      </ProCard>
+      {authorPassages.length > 1 ? (
+        <ProCard
+          style={{
+            border: '1px solid  #13C2C2',
+          }}
+          hoverable
+          title="作者的其他文章"
+        >
+          {authorPassages.map(
+            (passage: API.PassageTitleVO, index) =>
+              passage.passageId !== passageId && (
+                <Paragraph key={index}>
+                  <ul style={{ fontSize: '15px', fontWeight: 'bold' }}>
+                    <li>
+                      <a
+                        onClick={() =>
+                          otherPassage(authorId, passage.passageId)
+                        }
+                      >
+                        {passage.title}
+                      </a>
+                    </li>
+                  </ul>
+                </Paragraph>
+              ),
+          )}
+        </ProCard>
+      ) : (
+        <HotPassage />
+      )}
     </>
   );
 };

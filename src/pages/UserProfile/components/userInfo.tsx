@@ -62,7 +62,7 @@ const UserInfo = () => {
 
   //用户的文章数量、收藏点赞数量等
   const [UserData, setUserData] = useState<API.UserInfoDataVO>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   //拿到登录用户的id，那么从后端请求登陆用户的数据时可以直接用id请求接口，也可以用token请求“我的”接口
   // const loginUserId = LoginUserInfo?.userId;
@@ -103,11 +103,12 @@ const UserInfo = () => {
         },
       });
     } else {
+      setLoading(true);
       //获取粉丝、文章收藏量、作品数量、关注数量、点赞数量...
       fetchData();
       getLoginUser();
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const userItems: DescriptionsProps['items'] = [
@@ -371,10 +372,6 @@ const UserInfo = () => {
     setSelectedTags(value);
   };
 
-  // 监听 selectedTags 的变化
-  useEffect(() => {
-    // console.log('selectedTags 更新了:', selectedTags);
-  }, [selectedTags]);
   const loadData = async (visible: boolean) => {
     if (visible) {
       setLoadTag(true);
@@ -448,7 +445,6 @@ const UserInfo = () => {
                 layout={'vertical'}
                 initialValues={loginUser}
                 onValuesChange={onValuesChange}
-                loading={loading}
                 clearOnDestroy={true}
                 submitter={{
                   //不显示重置提交按钮
@@ -608,7 +604,6 @@ const UserInfo = () => {
               </Flex>
             </ProCard>
           </ProCard>
-
           <ProCard style={{ bottom: '70px', height: '170px' }}>
             <Descriptions items={userItems} column={2} />
           </ProCard>

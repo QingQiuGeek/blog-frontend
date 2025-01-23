@@ -23,8 +23,8 @@ import {
   Input,
   Popover,
   QRCode,
-  Skeleton,
   Space,
+  Spin,
   Tag,
   Typography,
   message,
@@ -47,7 +47,10 @@ const PassageDetails = () => {
   const [passageInfo, setPassageInfo] = useState<API.PassageInfoVO>();
   const [isthumb, setIsThumb] = useState<boolean>(false);
   const [iscollect, setIsCollect] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [contentLoading, setContentLoading] = useState<boolean>(true);
+  const [passageInfoLoading, setPassageInfoLoading] = useState<boolean>(true);
+  useState<boolean>(true);
+
   const [passageContent, setPassageContent] = useState<API.PassageContentVO>();
   useEffect(() => {
     //监控passageInfo加载完后设置点赞收藏状态
@@ -83,8 +86,12 @@ const PassageDetails = () => {
   // console.log('content:' + stringify(passageContent));
   useEffect(() => {
     fetchPassageInfo();
+    setPassageInfoLoading(false);
+  }, [passageId, authorId]);
+
+  useEffect(() => {
     fetchPassageContent();
-    setLoading(false);
+    setContentLoading(false);
   }, [passageId, authorId]);
 
   const doCollect = debounce(async () => {
@@ -167,7 +174,7 @@ const PassageDetails = () => {
   return (
     <>
       <ProCard
-        loading={loading}
+        loading={passageInfoLoading}
         style={{
           bottom: '20px',
           backgroundColor: '#8EC5FC',
@@ -202,25 +209,28 @@ const PassageDetails = () => {
           ))}
         </Flex>
       </ProCard>
-      <Typography>
-        <Title level={2}>{passageInfo?.title}</Title>
-        <Divider
-          orientation="left"
-          orientationMargin="0"
-          style={{ fontWeight: 'bold' }}
-        >
-          🔖摘要
-        </Divider>
-        {passageInfo?.summary}
-        <Divider
-          orientation="left"
-          orientationMargin="0"
-          style={{ fontWeight: 'bold' }}
-        >
-          🔖正文
-        </Divider>
-        {loading ? <Skeleton /> : <MdPreview value={passageContent?.content} />}
-      </Typography>
+      <Spin spinning={contentLoading}>
+        <Typography>
+          <Title level={2}>{passageInfo?.title}</Title>
+          <Divider
+            orientation="left"
+            orientationMargin="0"
+            style={{ fontWeight: 'bold' }}
+          >
+            🔖摘要
+          </Divider>
+          {passageInfo?.summary}
+          <Divider
+            orientation="left"
+            orientationMargin="0"
+            style={{ fontWeight: 'bold' }}
+          >
+            🔖正文
+          </Divider>
+          <MdPreview value={passageContent?.content} />
+        </Typography>
+      </Spin>
+
       {/* 1370 */}
       <FloatButton.Group>
         <FloatButton
