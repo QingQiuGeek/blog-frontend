@@ -13,13 +13,12 @@ export default defineConfig({
   proxy: {
     '/api': {
       // 换成https，编辑器上传图片功能就报错
-      target: 'http://127.0.0.1:8081',
+      target: 'http://47.97.220.175:8081',
       changeOrigin: true,
       // pathRewrite: { '^/api': '' },
       secure: true,
     },
     '/ai': {
-      // 换成https，编辑器上传图片功能就报错
       target: 'https://spark-api-open.xf-yun.com',
       changeOrigin: true,
       pathRewrite: { '^/ai': '' },
@@ -45,7 +44,7 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://127.0.0.1:8081/api/v2/api-docs',
+      schemaPath: 'http://47.97.220.175:8081/api/v2/api-docs',
     },
   ],
 });

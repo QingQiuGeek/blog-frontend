@@ -90,19 +90,9 @@ export default ({ onClose }: any) => {
     setLoading(false);
   };
 
-  //TODO 验证码防抖
-  const getCaptcha = async () => {
-    setLoading(true);
-    //获取邮箱输入框元素
-    const emailInput = document.getElementById('mail'); // 获取具有指定类名的元素
-    const email = emailInput?.value; // 获取输入框的值
-    // console.log('mail:' + email);
-    const b = MAIL_REGEX.test(email);
-    if (!email || !b) {
-      message.warning('请输入正确的邮箱！');
-      setLoading(false);
-      return;
-    }
+  const [captchaLoading, setCaptchaLoading] = useState<boolean>(false);
+  const getCaptcha = async (email: string) => {
+    setCaptchaLoading(true);
     try {
       await sendRegisterCodeUsingPost({
         mail: email,
@@ -110,9 +100,22 @@ export default ({ onClose }: any) => {
       message.success('验证码发送成功，请注意邮箱查收');
     } catch (error) {
       // console.log('error:' + stringify(error));
-      message.error('验证码发送失败', error);
+      message.error('验证码发送失败：' + error);
     }
-    setLoading(false);
+    setCaptchaLoading(false);
+  };
+
+  const handleGetCaptcha = async () => {
+    const emailInput = document.getElementById('mail'); // 获取具有指定类名的元素
+    const email = emailInput?.value; // 获取输入框的值
+    // console.log('mail:' + email);
+    const b = MAIL_REGEX.test(email);
+    if (!email || !b) {
+      message.warning('请输入正确的邮箱！');
+      return Promise.reject('请输入邮箱');
+    } else {
+      getCaptcha(email);
+    }
   };
 
   return (
@@ -366,14 +369,8 @@ export default ({ onClose }: any) => {
                   captchaProps={{
                     size: 'large',
                   }}
+                  // fieldRef={captchaRef}
                   placeholder={'请输入验证码'}
-                  captchaTextRender={(timing, count) => {
-                    if (timing) {
-                      return `${count} ${'获取验证码'}`;
-                    }
-
-                    return '获取验证码';
-                  }}
                   name="captcha"
                   rules={[
                     {
@@ -381,18 +378,10 @@ export default ({ onClose }: any) => {
                       message: '请输入验证码！',
                     },
                   ]}
-                  onGetCaptcha={getCaptcha}
+                  onGetCaptcha={handleGetCaptcha}
                 />
               </>
             )}
-            <a
-              style={{
-                marginBottom: '15px',
-                float: 'right',
-              }}
-            >
-              忘记密码
-            </a>
           </LoginForm>
         </div>
       )}
