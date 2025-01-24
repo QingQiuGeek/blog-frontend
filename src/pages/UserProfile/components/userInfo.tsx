@@ -76,10 +76,13 @@ const UserInfo = () => {
     }
   };
   const getLoginUser = async () => {
+    setLoading(true);
+
     try {
       const res: API.LoginUserVO = await getLoginUserUsingGet();
       if (res) {
         setLoginUser(res);
+        setLoading(false);
       } else {
         message.error('获取登录用户信息失败');
       }
@@ -103,11 +106,9 @@ const UserInfo = () => {
         },
       });
     } else {
-      setLoading(true);
       //获取粉丝、文章收藏量、作品数量、关注数量、点赞数量...
       fetchData();
       getLoginUser();
-      setLoading(false);
     }
   }, []);
 

@@ -16,6 +16,7 @@ const FollowsList = () => {
   const [pageSize, setPageSize] = useState<number>(5); // 默认每页5条
   const page = new URLSearchParams(location.search).get('page');
   const fetchMyFollows = async () => {
+    setLoading(true);
     try {
       const res: API.BaseResponseListUserVO_ = await myFollowUsingPost({
         pageSize: pageSize,
@@ -23,6 +24,7 @@ const FollowsList = () => {
       });
       setFollows(res.records.flat()); // 更新 dataSource
       setTotal(res.total);
+      setLoading(false);
     } catch (error) {
       message.error('我的关注列表获取失败' + error);
     }
@@ -39,14 +41,12 @@ const FollowsList = () => {
       }
       fetchMyFollows();
     }
-    setLoading(false);
   }, [currentPage, page]);
 
   useEffect(() => {
     if (localStorage.getItem('loginUser')) {
       //获取我的关注列表
       fetchMyFollows();
-      setLoading(false);
     }
   }, []);
   // console.log('followsList: ' + stringify(follows));

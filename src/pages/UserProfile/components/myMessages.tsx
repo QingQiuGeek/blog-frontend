@@ -22,6 +22,7 @@ const MessageList = () => {
 
   // const [total, setTotal] = useState(0); // 数据总数，用于分页
   const loadMoreData = () => {
+    setLoading(true);
     //我的消息和文章评论都是commentVO，那么用同一个state
     dispatch({
       type: 'comment/effectGetMyMessage',
@@ -30,6 +31,7 @@ const MessageList = () => {
         currentPage: currentPage,
       },
     });
+    setLoading(false);
   };
 
   useEffect(() => {

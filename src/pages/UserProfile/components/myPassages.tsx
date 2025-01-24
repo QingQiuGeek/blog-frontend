@@ -35,6 +35,7 @@ const MyPassages = () => {
   const page = new URLSearchParams(location.search).get('page');
 
   const fetchMyPassages = async () => {
+    setLoading(true);
     try {
       const res: API.BaseResponsePageListPassageInfoVO_ =
         await myPassagesUsingPost({
@@ -44,6 +45,7 @@ const MyPassages = () => {
       // console.log('res: ' + stringify(res));
       setPassages(res.records.flat()); // 更新 dataSource
       setTotal(res.total);
+      setLoading(false);
     } catch (error) {
       message.error('我的文章列表获取失败' + error);
     }
@@ -59,7 +61,6 @@ const MyPassages = () => {
       }
       fetchMyPassages();
     }
-    setLoading(false);
   }, [currentPage, page]);
   // const loginUser: API.LoginUserVO = useSelector(
   //   (state: any) => state.loginUser,

@@ -17,6 +17,7 @@ const FansList = () => {
   const page = new URLSearchParams(location.search).get('page');
 
   const fetchMyFollowers = async () => {
+    setLoading(true);
     try {
       const res: API.BaseResponseListUserVO_ = await myFollowersUsingPost({
         pageSize: pageSize,
@@ -24,6 +25,7 @@ const FansList = () => {
       });
       setFollowers(res.records.flat());
       setTotal(res.total);
+      setLoading(false);
     } catch (error) {
       message.error('我的粉丝列表获取失败' + error);
     }
@@ -39,7 +41,6 @@ const FansList = () => {
       }
       fetchMyFollowers();
     }
-    setLoading(false);
   }, [currentPage, page]);
 
   // useEffect(() => {

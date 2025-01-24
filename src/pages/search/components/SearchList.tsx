@@ -31,7 +31,7 @@ const SearchList = () => {
   // const [id, setId] = useState();
   // const [text, setText] = useState();
   const page = searchParams.get('page');
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [searchList, setSearchList] = useState<API.PassageInfoVO[]>([]);
   const [total, setTotal] = useState(0); // 数据总数，用于分页
@@ -42,6 +42,8 @@ const SearchList = () => {
   const text = searchParams.get('text') || ''; // b
   const getSearchList = async () => {
     // console.log(type, id, text);
+    setLoading(true);
+
     try {
       const res: API.BaseResponsePageListPassageInfoVO_ =
         await searchPassageUsingPost({
@@ -53,6 +55,8 @@ const SearchList = () => {
         });
       setSearchList(res.records.flat()); // 将二维数组转换为一维数组
       setTotal(res.total); //总记录数
+      setLoading(false);
+
       // console.log('res：' + stringify(res));
     } catch (e) {
       message.error('搜索失败：' + e);
@@ -66,7 +70,6 @@ const SearchList = () => {
       setCurrentPage(1);
     }
     getSearchList();
-    setLoading(false);
     //页码或每页条数变化时重新加载数据
   }, [searchParams]);
 

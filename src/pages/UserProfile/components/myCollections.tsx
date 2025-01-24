@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 
 const MyCollections = () => {
   const [collects, setCollects] = useState<API.PassageInfoVO[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
@@ -28,8 +28,10 @@ const MyCollections = () => {
 
   //获取我的收藏列表
   const fetchMyCollects = async () => {
+    setLoading(true);
+
     try {
-      const res: API.BaseResponseListPassageInfoVO_ =
+      const res: API.BaseResponsePageListPassageInfoVO_ =
         await myCollectPassageUsingPost({
           pageSize: pageSize,
           currentPage: currentPage,
@@ -37,6 +39,7 @@ const MyCollections = () => {
       // console.log('res: ' + stringify(res));
       setCollects(res.records.flat()); // 更新 dataSource
       setTotal(res.total);
+      setLoading(false);
     } catch (error) {
       message.error('我的收藏文章列表获取失败' + error);
     }
@@ -44,7 +47,6 @@ const MyCollections = () => {
   useEffect(() => {
     if (localStorage.getItem('loginUser')) {
       fetchMyCollects();
-      setLoading(false);
     }
   }, []);
   useEffect(() => {
@@ -58,7 +60,6 @@ const MyCollections = () => {
       }
       fetchMyCollects();
     }
-    setLoading(false);
   }, [currentPage, page]);
 
   // console.log('myStar：' + stringify(collects));

@@ -27,8 +27,9 @@ const MyThumbs = () => {
   const page = new URLSearchParams(location.search).get('page');
 
   const fetchMyThumbs = async () => {
+    setLoading(true);
     try {
-      const res: API.BaseResponseListPassageInfoVO_ =
+      const res: API.BaseResponsePageListPassageInfoVO_ =
         await myThumbPassageUsingPost({
           currentPage: currentPage,
           pageSize: pageSize,
@@ -36,6 +37,7 @@ const MyThumbs = () => {
       // console.log('res: ' + stringify(res));
       setThumbs(res.records.flat());
       setTotal(res.total);
+      setLoading(false);
     } catch (error) {
       message.error('我的点赞文章列表获取失败' + error);
     }
@@ -51,7 +53,6 @@ const MyThumbs = () => {
       }
       fetchMyThumbs();
     }
-    setLoading(false);
   }, [currentPage, page]);
 
   // setThumbNum(thumbs.length);
