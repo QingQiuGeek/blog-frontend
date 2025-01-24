@@ -10,21 +10,21 @@ export default defineConfig({
     // dark: true,
   },
   access: {},
-  proxy: {
-    '/api': {
-      // 换成https，编辑器上传图片功能就报错
-      target: 'http://127.0.0.1:8081',
-      changeOrigin: true,
-      // pathRewrite: { '^/api': '' },
-      secure: true,
-    },
-    '/ai': {
-      target: 'https://spark-api-open.xf-yun.com',
-      changeOrigin: true,
-      pathRewrite: { '^/ai': '' },
-      secure: false,
-    },
-  },
+  // proxy: {
+  //   '/api': {
+  //     // 换成https，编辑器上传图片功能就报错
+  //     target: 'http://127.0.0.1:8081',
+  //     changeOrigin: true,
+  //     // pathRewrite: { '^/api': '' },
+  //     secure: true,
+  //   },
+  //   '/ai': {
+  //     target: 'https://spark-api-open.xf-yun.com',
+  //     changeOrigin: true,
+  //     pathRewrite: { '^/ai': '' },
+  //     secure: false,
+  //   },
+  // },
   model: {},
   initialState: {},
 

@@ -57,7 +57,6 @@ export default () => {
                     // 3、尝试分片解析json
                     let boundaryIndex = 0;
                     // 当前片内容
-                    let result = '';
                     while ((boundaryIndex = jsonBuffer.indexOf('\n')) >= 0) {
                       // 3.1 数据块切片
                       const jsonString = jsonBuffer.slice(0, boundaryIndex);

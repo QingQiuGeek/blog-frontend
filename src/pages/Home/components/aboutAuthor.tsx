@@ -31,8 +31,7 @@ const AboutAuthor = () => {
           <Flex gap="8px 0px" wrap>
             <Tag color="magenta">Java</Tag>
             <Tag color="volcano">大数据</Tag>
-            <Tag color="orange">前端UI</Tag>
-            <Tag color="purple">自媒体</Tag>
+            <Tag color="orange">React</Tag>
             <Tag color="green">准全栈</Tag>
             <Tag color="gold">😐不喜欢废话</Tag>
           </Flex>
