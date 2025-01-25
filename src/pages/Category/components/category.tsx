@@ -9,12 +9,31 @@ for (let i = 1; i <= 15; i++) {
 }
 
 const Category = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const location = useLocation();
   const [categories, setCategories] = useState<API.CategoryVO[]>();
   const page = new URLSearchParams(location.search).get('page');
+  const getCategories = async () => {
+    setLoading(true);
+    try {
+      const res: API.BaseResponsePageListCategoryVO_ =
+        await getCategoriesUsingPost({
+          currentPage: currentPage,
+          pageSize: 9,
+        });
+      if (res) {
+        setTotal(res.total);
+        setCategories(res.records.flat());
+        setLoading(false);
+      } else {
+        message.error('文章类别加载失败');
+      }
+    } catch (error) {
+      message.error('文章类别加载异常：' + error);
+    }
+  };
   useEffect(() => {
     // 从 URL 获取页码
     if (page) {
@@ -22,25 +41,7 @@ const Category = () => {
     } else {
       setCurrentPage(1);
     }
-    const getCategories = async () => {
-      try {
-        const res: API.BaseResponsePageListCategoryVO_ =
-          await getCategoriesUsingPost({
-            currentPage: currentPage,
-            pageSize: 9,
-          });
-        if (res) {
-          setTotal(res.total);
-          setCategories(res.records.flat());
-        } else {
-          message.error('文章类别加载失败');
-        }
-      } catch (error) {
-        message.error('文章类别加载异常：' + error);
-      }
-    };
     getCategories();
-    setLoading(false);
   }, [currentPage, page]);
 
   const handleClick = (item: API.CategoryVO) => {
@@ -50,6 +51,7 @@ const Category = () => {
   };
   return (
     <List
+      loading={loading}
       pagination={{
         total: total,
         current: currentPage,
@@ -75,7 +77,6 @@ const Category = () => {
           <a onClick={() => handleClick(item)}>
             <Card
               size="small"
-              loading={loading}
               hoverable
               style={{
                 height: '160px',

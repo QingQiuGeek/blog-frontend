@@ -9,6 +9,7 @@ export default () => {
         helloMessage={
           '欢迎使用 青秋AI ，这是我的博客：[CSDN](https://blog.csdn.net/qq_73181349)'
         }
+        // /ai/v1/chat/completions
         request={async (messages) => {
           const response = await fetch('/ai/v1/chat/completions', {
             method: 'POST',
