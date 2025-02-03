@@ -56,7 +56,6 @@ const Category = () => {
         total: total,
         current: currentPage,
         pageSize: 9,
-        showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} `,
         onChange: (page, pageSize) => {
           setCurrentPage(page);
           history.push(`?page=${page}`);

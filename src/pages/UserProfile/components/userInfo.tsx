@@ -582,7 +582,7 @@ const UserInfo = () => {
             <ProCard colSpan="40%">
               <Avatar
                 shape="square"
-                size={100}
+                size={150}
                 style={{ right: '30px', bottom: '55px' }}
                 src={
                   <img
@@ -591,19 +591,19 @@ const UserInfo = () => {
                 }
               />
             </ProCard>
+          </ProCard>
 
-            <ProCard style={{ right: '28px', bottom: '50px' }}>
-              <Flex gap="8px 0px" wrap>
-                {(loginUser
-                  ? loginUser.interestTag
-                  : DEFAULT_USER.interestTag
-                )?.map((tag, index) => (
-                  <Tag key={index} color="#13c2c2">
-                    {tag}
-                  </Tag>
-                ))}
-              </Flex>
-            </ProCard>
+          <ProCard style={{ bottom: '80px' }}>
+            <Flex gap="8px 0px" wrap>
+              {(loginUser
+                ? loginUser.interestTag
+                : DEFAULT_USER.interestTag
+              )?.map((tag, index) => (
+                <Tag key={index} color="#13c2c2">
+                  {tag}
+                </Tag>
+              ))}
+            </Flex>
           </ProCard>
           <ProCard style={{ bottom: '70px', height: '170px' }}>
             <Descriptions items={userItems} column={2} />

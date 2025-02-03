@@ -57,9 +57,7 @@ const AboutAuthor = () => {
         <br></br>
         <Paragraph>
           <Text mark style={{ fontWeight: 'bold' }}>
-            Java、大数据在学，对Web3、AIGC、自媒体也感兴趣
-            ，希望能成为独立开发、数字游民 or
-            大数据攻城狮。保持浪漫，热爱生活🐭~
+            Java、大数据在学，对AIGC、独立开发、自媒体也感兴趣。保持浪漫，热爱生活🐭~
           </Text>
         </Paragraph>
       </ProCard>

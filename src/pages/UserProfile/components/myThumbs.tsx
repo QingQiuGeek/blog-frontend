@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 
 const MyThumbs = () => {
   const [thumbs, setThumbs] = useState<API.PassageInfoVO[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页

@@ -26,7 +26,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 const MyPassages = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [passages, setPassages] = useState<API.PassageInfoVO[]>([]);
 
   const [total, setTotal] = useState(0); // 数据总数，用于分页

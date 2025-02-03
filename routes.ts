@@ -41,7 +41,7 @@ export default [
     component: './EditPassage',
   },
   {
-    path: '/ai',
+    path: '/chatAi',
     name: 'AI',
     icon: 'GiftTwoTone',
     component: './Ai',

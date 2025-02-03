@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 const FollowsList = () => {
   const [follows, setFollows] = useState<API.UserVO[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
@@ -27,6 +27,7 @@ const FollowsList = () => {
       setLoading(false);
     } catch (error) {
       message.error('我的关注列表获取失败' + error);
+      setLoading(false);
     }
   };
 
@@ -43,12 +44,12 @@ const FollowsList = () => {
     }
   }, [currentPage, page]);
 
-  useEffect(() => {
-    if (localStorage.getItem('loginUser')) {
-      //获取我的关注列表
-      fetchMyFollows();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('loginUser')) {
+  //     //获取我的关注列表
+  //     fetchMyFollows();
+  //   }
+  // }, []);
   // console.log('followsList: ' + stringify(follows));
 
   // 当 follows 更新时，更新 data
@@ -127,7 +128,6 @@ const FollowsList = () => {
           setCurrentPage(page);
           history.push(`?page=${page}`);
         },
-        showTotal: (total, range) => `${range[0]}-${range[1]} | 共 ${total} `,
         pageSize: pageSize,
         position: 'top',
         total: total,

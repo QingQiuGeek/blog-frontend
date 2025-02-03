@@ -5,7 +5,6 @@ import { requestConfig } from '../requestConfig';
 import NotAuthErrorPage from './components/ErrorPage/notAuthErrorPage';
 import NotFoundErrorPage from './components/ErrorPage/notFoundErrorPage';
 import Footer from './components/Footer/footer';
-import { appList } from './components/HeaderAppList/appList';
 import Login from './components/Login/login';
 import { DEFAULT_USER } from './constants/DefaultUser';
 import { LOGO } from './constants/URLResources';
@@ -77,7 +76,7 @@ const Layout = () => {
     fixedHeader: true,
     title: '青秋博客',
     logo: LOGO,
-    appList: appList,
+    // appList: appList,
     // 默认布局调整
     footerRender: () => <Footer />,
     menuItemRender: (item: any, dom: any) => (
@@ -115,12 +114,6 @@ const Layout = () => {
         }
         return (
           <>
-            <Switch
-              checkedChildren="白昼"
-              unCheckedChildren="黑夜"
-              defaultChecked
-              style={{ marginRight: '20px' }}
-            />
             {dom}
             <Link to="/home">
               {/* 退出登录后刷新并跳转到主页 */}
