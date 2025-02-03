@@ -1,13 +1,13 @@
 import { formatTimestampMinutes } from '@/utils/utils';
 import { history, useDispatch, useSelector } from '@umijs/max';
-import { Avatar, Button, List, Popover } from 'antd';
+import { Avatar, Button, List, Popover, message } from 'antd';
 import { useEffect, useState } from 'react';
 
 //该组件展示我的文章的评论
 
 const MessageList = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const [pageSize, setPageSize] = useState<number>(5); // 默认每页5条
   const page = new URLSearchParams(location.search).get('page');
@@ -23,6 +23,8 @@ const MessageList = () => {
   // const [total, setTotal] = useState(0); // 数据总数，用于分页
   const loadMoreData = () => {
     setLoading(true);
+    message.info('1');
+
     //我的消息和文章评论都是commentVO，那么用同一个state
     dispatch({
       type: 'comment/effectGetMyMessage',
@@ -34,20 +36,19 @@ const MessageList = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    // 从 URL 获取页码
-    // const page = searchParams.get('page');
-    if (localStorage.getItem('loginUser')) {
-      if (page) {
-        setCurrentPage(Number(page)); // 更新分页
-      } else {
-        setCurrentPage(1);
-      }
-      loadMoreData();
-      // setTotal(records.length);
-    }
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   // 从 URL 获取页码
+  //   // const page = searchParams.get('page');
+  //   if (localStorage.getItem('loginUser')) {
+  //     if (page) {
+  //       setCurrentPage(Number(page)); // 更新分页
+  //     } else {
+  //       setCurrentPage(1);
+  //     }
+  //     loadMoreData();
+  //     // setTotal(records.length);
+  //   }
+  // }, []);
 
   useEffect(() => {
     // 从 URL 获取页码
@@ -61,7 +62,6 @@ const MessageList = () => {
       loadMoreData();
       // setTotal(records.length);
     }
-    setLoading(false);
   }, [currentPage, page]);
 
   //控制删除提示框的显隐

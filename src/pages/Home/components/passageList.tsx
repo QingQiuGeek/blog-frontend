@@ -134,7 +134,6 @@ const PassageList = () => {
         current: currentPage,
         pageSize: pageSize,
         showSizeChanger: true,
-        showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} 篇`,
         onChange: (page, pageSize) => {
           setPageSize(pageSize);
           setCurrentPage(page);
