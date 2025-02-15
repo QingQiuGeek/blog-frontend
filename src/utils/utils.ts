@@ -3,11 +3,6 @@ import { history } from '@umijs/max';
 import { message } from 'antd';
 import CryptoJS from 'crypto-js';
 
-// 示例方法，没有实际意义
-export function trim(str: string) {
-  return str.trim();
-}
-
 // 生成随机的十六进制颜色
 // export const getRandomColor = () => {
 //   const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
