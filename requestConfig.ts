@@ -11,7 +11,7 @@ interface ResponseStructure {
 //umi4使用了axios，https://axios-http.com/docs/interceptors
 //umi3是umi-request ，https://github.com/umijs/umi-request#request-options
 export const requestConfig: RequestConfig = {
-  baseURL: 'http://127.0.0.1:8081',
+  baseURL: 'http://47.97.220.175:8081',
   withCredentials: true,
   timeout: 5000,
   // 请求拦截器

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 
 import { ProCard } from '@ant-design/pro-components';
-import { Image, QRCode, Space, Timeline } from 'antd';
+import { Image, Space, Timeline } from 'antd';
 import RcResizeObserver from 'rc-resize-observer';
 import { useState } from 'react';
 import TimeLineEvents from './components/TimeLineEvents';
@@ -320,11 +320,11 @@ export default () => {
                     fontWeight: 'bold',
                   }}
                 >
-                  <QRCode
+                  {/* <QRCode
                     errorLevel="H"
                     value="https://blog.csdn.net/qq_73181349?spm=1000.2115.3001.5343"
                     icon="https://ooo.0x0.ooo/2024/10/19/ODGrrN.jpg"
-                  />
+                  /> */}
                 </ProCard>
                 <Divider type={responsive ? 'horizontal' : 'vertical'} />
                 <ProCard
