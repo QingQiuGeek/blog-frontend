@@ -1,5 +1,5 @@
 import PassageSummary from '@/pages/Home/components/passageSummary';
-import SearchPassage from '@/pages/Home/components/search';
+import SearchInput from '@/pages/Home/components/searchInput';
 import { searchPassageUsingPost } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import {
@@ -27,9 +27,6 @@ import React, { useEffect, useState } from 'react';
 const SearchList = () => {
   // 当前 location /comp?a=b;
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [type, setType] = useState();
-  // const [id, setId] = useState();
-  // const [text, setText] = useState();
   const page = searchParams.get('page');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -41,9 +38,7 @@ const SearchList = () => {
   const id = searchParams.get('id') || 0; // b
   const text = searchParams.get('text') || ''; // b
   const getSearchList = async () => {
-    // console.log(type, id, text);
     setLoading(true);
-
     try {
       const res: API.BaseResponsePageListPassageInfoVO_ =
         await searchPassageUsingPost({
@@ -102,6 +97,7 @@ const SearchList = () => {
     thumbnail: passage.thumbnail, // 文章缩略图
     passageId: passage.passageId,
   }));
+
   const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
     <Space>
       {React.createElement(icon)}
@@ -109,6 +105,7 @@ const SearchList = () => {
     </Space>
   );
   const dispatch = useDispatch();
+
   const handleClick = (item: any) => {
     const params = {
       accessTime: item.accessTime,
@@ -128,109 +125,108 @@ const SearchList = () => {
       type: 'passageInfo/reduceSetPassageInfo',
       payload: params,
     });
-    // console.log('params：' + stringify(params));
     history.push(`/passage/passageDetails/${item.authorId}/${item.passageId}`);
-    // return ;
   };
 
   return (
-    <ProCard split="vertical">
-      <ProCard colSpan="60%" wrap title="搜索结果">
-        <SearchPassage></SearchPassage>
-        <List
-          itemLayout="vertical"
-          size="large"
-          loading={loading}
-          pagination={{
-            pageSizeOptions: [5, 10, 15],
-            total: total,
-            current: currentPage,
-            showSizeChanger: true,
-            pageSize: pageSize,
-            showTotal: (total, range) =>
-              `${range[0]}-${range[1]} of ${total} 篇`,
-            onChange: (page, pageSize) => {
-              setPageSize(pageSize);
-              setCurrentPage(page);
-            },
-            onShowSizeChange: () => {
-              setPageSize(pageSize);
-            },
-          }}
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item
-              key={item.passageId}
-              actions={[
-                <IconText
-                  icon={EyeOutlined}
-                  text={String(item.viewNum)}
-                  key="list-vertical-star-o"
-                />,
-                <IconText
-                  icon={item.isCollect ? StarFilled : StarOutlined}
-                  text={String(item.collectNum)}
-                  key="list-vertical-star-o"
-                />,
-                <IconText
-                  icon={item.isThumb ? LikeFilled : LikeOutlined}
-                  text={String(item.thumbNum)}
-                  key="list-vertical-like-o"
-                />,
-                <IconText
-                  icon={MessageOutlined}
-                  text={String(item.commentNum)}
-                  key="list-vertical-message"
-                />,
-                <IconText
-                  icon={ClockCircleOutlined}
-                  text={item.accessTime}
-                  key="list-vertical-message"
-                />,
-              ]}
-              extra={
-                <img
-                  style={{
-                    height: 'auto',
-                    marginTop: '20px',
-                    objectFit: 'contain',
-                    width: '180px',
-                  }}
-                  // alt="预览图"
-                  src={item.thumbnail}
-                />
-              }
-            >
-              <List.Item.Meta
-                avatar={
-                  //跳转到用户主页
-                  <Link to="#">
-                    <div
-                      style={{
-                        border: '1px solid #13c2c2',
-                        backgroundColor: 'white',
-                      }}
-                    >
-                      <Avatar src={item.avatar} shape="square" size={65} />
-                    </div>
-                  </Link>
+    <>
+      <SearchInput />
+      <ProCard split="vertical">
+        <ProCard colSpan="60%" wrap title="搜索结果">
+          <List
+            itemLayout="vertical"
+            size="large"
+            loading={loading}
+            pagination={{
+              pageSizeOptions: [5, 10, 15],
+              total: total,
+              current: currentPage,
+              showSizeChanger: true,
+              pageSize: pageSize,
+              showTotal: (total, range) =>
+                `${range[0]}-${range[1]} of ${total} 篇`,
+              onChange: (page, pageSize) => {
+                setPageSize(pageSize);
+                setCurrentPage(page);
+              },
+              onShowSizeChange: () => {
+                setPageSize(pageSize);
+              },
+            }}
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item
+                key={item.passageId}
+                actions={[
+                  <IconText
+                    icon={EyeOutlined}
+                    text={String(item.viewNum)}
+                    key="list-vertical-star-o"
+                  />,
+                  <IconText
+                    icon={item.isCollect ? StarFilled : StarOutlined}
+                    text={String(item.collectNum)}
+                    key="list-vertical-star-o"
+                  />,
+                  <IconText
+                    icon={item.isThumb ? LikeFilled : LikeOutlined}
+                    text={String(item.thumbNum)}
+                    key="list-vertical-like-o"
+                  />,
+                  <IconText
+                    icon={MessageOutlined}
+                    text={String(item.commentNum)}
+                    key="list-vertical-message"
+                  />,
+                  <IconText
+                    icon={ClockCircleOutlined}
+                    text={item.accessTime}
+                    key="list-vertical-message"
+                  />,
+                ]}
+                extra={
+                  <img
+                    style={{
+                      height: 'auto',
+                      marginTop: '20px',
+                      objectFit: 'contain',
+                      width: '180px',
+                    }}
+                    // alt="预览图"
+                    src={item.thumbnail}
+                  />
                 }
-                // 之前用Link跳转，现在换成a标签
-                title={<a onClick={() => handleClick(item)}>{item.title}</a>}
-                description={item.description}
-              />
-              {/* 拼接url时不要换行，一定一行拼接完，否则url中的参数提取不出来 */}
-              <a onClick={() => handleClick(item)}>
-                <PassageSummary>{item.summary}</PassageSummary>
-              </a>
-            </List.Item>
-          )}
-        />
+              >
+                <List.Item.Meta
+                  avatar={
+                    //跳转到用户主页
+                    <Link to="#">
+                      <div
+                        style={{
+                          border: '1px solid #13c2c2',
+                          backgroundColor: 'white',
+                        }}
+                      >
+                        <Avatar src={item.avatar} shape="square" size={65} />
+                      </div>
+                    </Link>
+                  }
+                  // 之前用Link跳转，现在换成a标签
+                  title={<a onClick={() => handleClick(item)}>{item.title}</a>}
+                  description={item.description}
+                />
+                {/* 拼接url时不要换行，一定一行拼接完，否则url中的参数提取不出来 */}
+                <a onClick={() => handleClick(item)}>
+                  <PassageSummary>{item.summary}</PassageSummary>
+                </a>
+              </List.Item>
+            )}
+          />
+        </ProCard>
+        <ProCard title="搜索发现"></ProCard>
       </ProCard>
-      <ProCard title="搜索发现"></ProCard>
-    </ProCard>
+    </>
   );
 };
 
-// export default PassageList;
 export default connect()(SearchList);

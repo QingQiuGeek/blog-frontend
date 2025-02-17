@@ -23,7 +23,7 @@ const AuthorInfo = ({ passageNum }) => {
   const { authorId } = useParams();
   const [authorInfo, setAuthorInfo] = useState<API.UserVO>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [isFollowed, setIsFollowed] = useState(authorInfo?.isFollow);
+  const [isFollowed, setIsFollowed] = useState(false);
   useEffect(() => {
     //根据authorID获取作者信息
     const fetchAuthorInfo = async () => {

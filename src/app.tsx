@@ -76,7 +76,6 @@ const Layout = () => {
     fixedHeader: true,
     title: '青秋博客',
     logo: LOGO,
-    // appList: appList,
     // 默认布局调整
     footerRender: () => <Footer />,
     menuItemRender: (item: any, dom: any) => (
@@ -153,10 +152,8 @@ const Layout = () => {
             e.preventDefault();
           }}
         ></div>,
-        // ) : undefined,
       ];
     },
-    // 其他属性见：https://procomponents.ant.design/components/layout#prolayout
   };
 };
 

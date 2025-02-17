@@ -90,16 +90,14 @@ const FollowsList = () => {
   }, [follows]); // 当 follows 变化时，更新 data
 
   // 处理按钮点击事件
-  const handleClick = debounce(async (uid: number) => {
-    // console.log('userid:' + uid);
+  const handleFollow = debounce(async (uid: number) => {
     const updatedData = [...data];
     const userIndex = updatedData.findIndex((user) => user.userId === uid);
-    if (userIndex === -1) return; // 如果找不到该用户，返回
-    // console.log('userindex:' + userIndex);
-
-    updatedData[userIndex].isFollowed = !updatedData[userIndex].isFollowed; // 切换关注状态
-    setData(updatedData); // 更新数据
-
+    if (userIndex === -1) {
+      // 如果找不到该用户，返回
+      message.error('关注异常,找不到该用户');
+      return;
+    }
     try {
       // 模拟后端请求延迟
       const res = await followUsingPut({
@@ -109,6 +107,8 @@ const FollowsList = () => {
         message.success(
           updatedData[userIndex].isFollowed ? '关注成功！' : '已取消关注！',
         );
+        updatedData[userIndex].isFollowed = !updatedData[userIndex].isFollowed; // 切换关注状态
+        setData(updatedData); // 更新数据
       } else {
         message.error('操作失败');
       }
@@ -116,7 +116,6 @@ const FollowsList = () => {
       message.error('出错了，请稍后再试' + error);
     }
   }, 300);
-  // if (!follows) return <Spin size="large" />;
   return (
     <List
       loading={loading}
@@ -158,7 +157,7 @@ const FollowsList = () => {
                 >
                   <Button
                     type={item.isFollowed ? 'primary' : 'default'}
-                    onClick={() => handleClick(item.userId)} // 点击时传递用户的 id
+                    onClick={() => handleFollow(item.userId)} // 点击时传递用户的 id
                     loading={false}
                     // style={{ right: '5px' }}
                     style={{

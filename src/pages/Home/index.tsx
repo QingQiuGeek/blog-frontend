@@ -1,45 +1,27 @@
 import { ProCard } from '@ant-design/pro-components';
-import AboutAuthor from './components/aboutAuthor';
+import { Divider } from 'antd';
 import HotPassage from './components/hotPassage';
+import ItInformation from './components/itInformation';
 import PassageList from './components/passageList';
-import SearchPassage from './components/search';
+import SearchInput from './components/searchInput';
 import './css/index.css';
 
 export default () => {
   return (
     <>
-      {/* <Collapse
-        size="small"
-        ghost
-        style={{ backgroundColor: 'white', borderBottom: '1px solid #13c2c2' }}
-        items={[
-          {
-            key: '1',
-            label: (
-              <Space>
-                <Badge dot>
-                  <NotificationOutlined style={{ fontSize: 16 }} />
-                </Badge>
-                公告
-              </Space>
-            ),
-            children: <p>公告</p>,
-          },
-        ]}
-      /> */}
-
-      <ProCard split="vertical">
+      <ProCard>
         <ProCard wrap className="left-outer">
           <ProCard>
-            <SearchPassage></SearchPassage>
+            <SearchInput />
           </ProCard>
           <ProCard>
             <PassageList></PassageList>
           </ProCard>
         </ProCard>
-        <ProCard colSpan="30%" wrap className="right-outer">
-          <AboutAuthor></AboutAuthor>
-          <HotPassage></HotPassage>
+        <ProCard colSpan="25%" wrap className="right-outer">
+          <HotPassage />
+          <Divider />
+          <ItInformation />
         </ProCard>
       </ProCard>
     </>

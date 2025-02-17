@@ -6,13 +6,11 @@ import {
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { useLocation } from '@umijs/max';
 import { Button, Flex, Popconfirm, Tag, message } from 'antd';
 import { useRef, useState } from 'react';
 type UserItem = {
   userId: number;
   userName: string;
-  mail: string;
   interestTag: string[];
   status: number;
   createTime: number;
@@ -21,7 +19,6 @@ type UserItem = {
 
 //TODO 用户管理和文章管理，url回退问题
 const UserManage = () => {
-  const location = useLocation();
   const actionRef = useRef<ActionType>();
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
@@ -81,11 +78,6 @@ const UserManage = () => {
       valueType: 'indexBorder',
       width: 48,
       align: 'center',
-    },
-    {
-      title: '邮箱',
-      dataIndex: 'mail',
-      ellipsis: true,
     },
     {
       title: '用户名',
@@ -242,10 +234,6 @@ const UserManage = () => {
         onChange: (page, pageSize) => {
           setPageSize(pageSize);
           setCurrentPage(page);
-          // history.push({
-          //   pathname: '/admin/userManage',
-          //   search: `?current=${page}&pageSize=${pageSize}`,
-          // });
         },
       }}
       // request可以直接请求后端数据返回数据源，和dataSource选一个即可
@@ -255,7 +243,6 @@ const UserManage = () => {
           currentPage: currentPage, // 当前页码
           pageSize: pageSize, // 每页显示的记录数
           endTime: params?.endTime,
-          mail: params?.mail,
           startTime: params?.startTime,
           userId: validateNum(params?.userId) ? params?.userId : undefined,
           userName: params?.userName,

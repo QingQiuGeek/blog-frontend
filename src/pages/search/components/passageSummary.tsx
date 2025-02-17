@@ -5,7 +5,6 @@ const PassageSummary = ({ children }: any) => {
       className="content-div"
       style={{
         marginTop: '10px',
-        // marginBottom: '20px',
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
