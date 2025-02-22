@@ -19,7 +19,7 @@ const PassageList = () => {
   const [homePassageList, setHomePassageList] = useState<API.PassageInfoVO[]>(
     [],
   );
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
@@ -42,6 +42,7 @@ const PassageList = () => {
 
   const getHomePassageList = async () => {
     try {
+      setLoading(true);
       const res: API.BaseResponsePageListPassageInfoVO_ =
         await getHomePassageListUsingPost({
           currentPage: currentPage,
@@ -50,12 +51,10 @@ const PassageList = () => {
       setHomePassageList(res.records.flat()); // 将二维数组转换为一维数组
       setTotal(res.total); //总记录数
       setLoading(false);
-      // console.log('res：' + stringify(res));
     } catch (e) {
       message.error('获取首页文章列表失败：' + e);
     }
   };
-  // console.log('home：' + stringify(homePassageList));
   //页码或每页条数变化时重新加载数据
   useEffect(() => {
     getHomePassageList();
@@ -90,7 +89,6 @@ const PassageList = () => {
     thumbnail: passage.thumbnail, // 文章缩略图
     passageId: passage.passageId,
   }));
-  // console.log('homePassageList', +stringify(homePassageList));
 
   const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
     <Space>

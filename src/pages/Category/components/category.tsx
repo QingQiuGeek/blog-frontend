@@ -78,14 +78,14 @@ const Category = () => {
               size="small"
               hoverable
               style={{
-                height: '160px',
+                height: '140px',
                 border: '1px solid #13C2C2',
               }}
               key={item.categoryId}
               title=<span style={{ fontSize: '22px' }}>
                 {item.categoryName}
               </span>
-              extra={<span>(●'◡'●)</span>}
+              extra={<span>✨✨✨</span>}
             >
               <span
                 style={{

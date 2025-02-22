@@ -1,5 +1,4 @@
 import PassageSummary from '@/pages/Home/components/passageSummary';
-import SearchInput from '@/pages/Home/components/searchInput';
 import { searchPassageUsingPost } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import {
@@ -12,7 +11,6 @@ import {
   StarOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { ProCard } from '@ant-design/pro-components';
 import {
   Link,
   connect,
@@ -22,7 +20,6 @@ import {
 } from '@umijs/max';
 import { Avatar, Flex, List, Space, Tag, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-// import PassageSummary from './passageSummary';
 
 const SearchList = () => {
   // 当前 location /comp?a=b;
@@ -65,6 +62,8 @@ const SearchList = () => {
       setCurrentPage(1);
     }
     getSearchList();
+    // loadRecommendations();
+    // fetchAndParse();
     //页码或每页条数变化时重新加载数据
   }, [searchParams]);
 
@@ -130,101 +129,94 @@ const SearchList = () => {
 
   return (
     <>
-      <SearchInput />
-      <ProCard split="vertical">
-        <ProCard colSpan="60%" wrap title="搜索结果">
-          <List
-            itemLayout="vertical"
-            size="large"
-            loading={loading}
-            pagination={{
-              pageSizeOptions: [5, 10, 15],
-              total: total,
-              current: currentPage,
-              showSizeChanger: true,
-              pageSize: pageSize,
-              showTotal: (total, range) =>
-                `${range[0]}-${range[1]} of ${total} 篇`,
-              onChange: (page, pageSize) => {
-                setPageSize(pageSize);
-                setCurrentPage(page);
-              },
-              onShowSizeChange: () => {
-                setPageSize(pageSize);
-              },
-            }}
-            dataSource={data}
-            renderItem={(item) => (
-              <List.Item
-                key={item.passageId}
-                actions={[
-                  <IconText
-                    icon={EyeOutlined}
-                    text={String(item.viewNum)}
-                    key="list-vertical-star-o"
-                  />,
-                  <IconText
-                    icon={item.isCollect ? StarFilled : StarOutlined}
-                    text={String(item.collectNum)}
-                    key="list-vertical-star-o"
-                  />,
-                  <IconText
-                    icon={item.isThumb ? LikeFilled : LikeOutlined}
-                    text={String(item.thumbNum)}
-                    key="list-vertical-like-o"
-                  />,
-                  <IconText
-                    icon={MessageOutlined}
-                    text={String(item.commentNum)}
-                    key="list-vertical-message"
-                  />,
-                  <IconText
-                    icon={ClockCircleOutlined}
-                    text={item.accessTime}
-                    key="list-vertical-message"
-                  />,
-                ]}
-                extra={
-                  <img
+      <List
+        itemLayout="vertical"
+        size="large"
+        loading={loading}
+        pagination={{
+          pageSizeOptions: [5, 10, 15],
+          total: total,
+          current: currentPage,
+          showSizeChanger: true,
+          pageSize: pageSize,
+          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} 篇`,
+          onChange: (page, pageSize) => {
+            setPageSize(pageSize);
+            setCurrentPage(page);
+          },
+          onShowSizeChange: () => {
+            setPageSize(pageSize);
+          },
+        }}
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item
+            key={item.passageId}
+            actions={[
+              <IconText
+                icon={EyeOutlined}
+                text={String(item.viewNum)}
+                key="list-vertical-star-o"
+              />,
+              <IconText
+                icon={item.isCollect ? StarFilled : StarOutlined}
+                text={String(item.collectNum)}
+                key="list-vertical-star-o"
+              />,
+              <IconText
+                icon={item.isThumb ? LikeFilled : LikeOutlined}
+                text={String(item.thumbNum)}
+                key="list-vertical-like-o"
+              />,
+              <IconText
+                icon={MessageOutlined}
+                text={String(item.commentNum)}
+                key="list-vertical-message"
+              />,
+              <IconText
+                icon={ClockCircleOutlined}
+                text={item.accessTime}
+                key="list-vertical-message"
+              />,
+            ]}
+            extra={
+              <img
+                style={{
+                  height: 'auto',
+                  marginTop: '20px',
+                  objectFit: 'contain',
+                  width: '180px',
+                }}
+                // alt="预览图"
+                src={item.thumbnail}
+              />
+            }
+          >
+            <List.Item.Meta
+              avatar={
+                //跳转到用户主页
+                <Link to="#">
+                  <div
                     style={{
-                      height: 'auto',
-                      marginTop: '20px',
-                      objectFit: 'contain',
-                      width: '180px',
+                      border: '1px solid #13c2c2',
+                      backgroundColor: 'white',
                     }}
-                    // alt="预览图"
-                    src={item.thumbnail}
-                  />
-                }
-              >
-                <List.Item.Meta
-                  avatar={
-                    //跳转到用户主页
-                    <Link to="#">
-                      <div
-                        style={{
-                          border: '1px solid #13c2c2',
-                          backgroundColor: 'white',
-                        }}
-                      >
-                        <Avatar src={item.avatar} shape="square" size={65} />
-                      </div>
-                    </Link>
-                  }
-                  // 之前用Link跳转，现在换成a标签
-                  title={<a onClick={() => handleClick(item)}>{item.title}</a>}
-                  description={item.description}
-                />
-                {/* 拼接url时不要换行，一定一行拼接完，否则url中的参数提取不出来 */}
-                <a onClick={() => handleClick(item)}>
-                  <PassageSummary>{item.summary}</PassageSummary>
-                </a>
-              </List.Item>
-            )}
-          />
-        </ProCard>
-        <ProCard title="搜索发现"></ProCard>
-      </ProCard>
+                  >
+                    <Avatar src={item.avatar} shape="square" size={65} />
+                  </div>
+                </Link>
+              }
+              // 之前用Link跳转，现在换成a标签
+              title={<a onClick={() => handleClick(item)}>{item.title}</a>}
+              description={item.description}
+            />
+            {/* 拼接url时不要换行，一定一行拼接完，否则url中的参数提取不出来 */}
+            <a onClick={() => handleClick(item)}>
+              <PassageSummary>{item.summary}</PassageSummary>
+            </a>
+          </List.Item>
+        )}
+      />
     </>
   );
 };

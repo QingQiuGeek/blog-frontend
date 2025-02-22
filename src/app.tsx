@@ -1,5 +1,5 @@
 import { Link, useDispatch } from '@umijs/max';
-import { Button, Drawer, Switch } from 'antd';
+import { Button, Drawer } from 'antd';
 import { useState } from 'react';
 import { requestConfig } from '../requestConfig';
 import NotAuthErrorPage from './components/ErrorPage/notAuthErrorPage';
@@ -92,12 +92,6 @@ const Layout = () => {
         if (!loginUser) {
           return (
             <>
-              <Switch
-                checkedChildren="白昼"
-                unCheckedChildren="黑夜"
-                defaultChecked
-                style={{ marginRight: '20px' }}
-              />
               {dom}
               <Button onClick={showDrawer}>登陆注册</Button>
               <Drawer

@@ -51,7 +51,7 @@ const HotPassage = () => {
           {topPassages?.map((passage: API.PassageTitleVO, index) => {
             return (
               <Paragraph key={index}>
-                <ul style={{ fontSize: '15px', fontWeight: 'bold' }}>
+                <ul>
                   <li>
                     <a
                       onClick={() =>

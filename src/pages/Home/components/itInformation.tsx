@@ -20,7 +20,7 @@ export default () => {
       }
       return await response.json();
     } catch (error) {
-      console.error('获取IT资讯失败:', error);
+      console.error('获取资讯失败:', error);
       throw error;
     }
   };
@@ -37,13 +37,14 @@ export default () => {
       console.log(res);
       if (res.success) {
         console.log(res.data);
-        setItInformationList(res.data.slice(0, 10));
+        //取前15条
+        setItInformationList(res.data.slice(0, 15));
         setLoading(false);
       } else {
-        message.error('获取每日IT资讯失败');
+        message.error('获取每日资讯失败');
       }
     } catch (error) {
-      message.error('获取每日IT资讯异常：' + error);
+      message.error('获取每日资讯异常：' + error);
     }
   };
   useEffect(() => {
@@ -55,7 +56,7 @@ export default () => {
       <Badge.Ribbon text="Hot" color="red">
         <ProCard
           loading={loading}
-          title="每日IT资讯"
+          title="每日资讯"
           hoverable
           bordered
           style={{ border: '1px solid #13C2C2' }}
@@ -63,7 +64,7 @@ export default () => {
           {itInformationList?.map((information: ItInformationVO, index) => {
             return (
               <Paragraph key={index}>
-                <ul style={{ fontSize: '15px', fontWeight: 'bold' }}>
+                <ul>
                   <li>
                     <a
                       style={{
@@ -74,6 +75,7 @@ export default () => {
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                       }}
+                      target="_blank "
                       href={information.url}
                     >
                       {information.title}

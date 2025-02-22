@@ -10,4 +10,6 @@ export const DEFAULT_USER_AVATAR =
 export const LOGIN_LOGO =
   'https://blog-backend.oss-cn-beijing.aliyuncs.com/000e42e453ce988b9445034ab73f077.jpg';
 
-export const ITInformationURL = 'https://api.vvhan.com/api/hotlist/itNews';
+export const ITInformationURL = 'https://api.vvhan.com/api/hotlist/huXiu';
+
+export const SearchURL = '/proxy/search';

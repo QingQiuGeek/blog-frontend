@@ -11,6 +11,12 @@ export default defineConfig({
   },
   access: {},
   proxy: {
+    '/proxy': {
+      target: 'https://cn.bing.com',
+      changeOrigin: true, // 避免 CORS 问题
+      pathRewrite: { '^/proxy': '' }, // 将 /proxy 重写为根路径
+      secure: false, // 使用 HTTP 而不是 HTTPS（因为 Bing 是 HTTPS）
+    },
     '/api': {
       // 换成https，编辑器上传图片功能就报错
       target: 'http://127.0.0.1:8081',

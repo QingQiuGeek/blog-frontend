@@ -1,4 +1,4 @@
-import { modelDomain } from '@/constants/AI';
+import { MODEL_DOMAIN, TOKEN } from '@/constants/AI';
 import { ProChat } from '@ant-design/pro-chat';
 import { ProCard } from '@ant-design/pro-components';
 export default () => {
@@ -16,10 +16,10 @@ export default () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
-              Authorization: 'Bearer uoaIRTZjqIAeqOKqVnkQ:wqxCyYGCwOpBxsZIQozf',
+              Authorization: 'Bearer ' + TOKEN,
             },
             body: JSON.stringify({
-              model: modelDomain,
+              model: MODEL_DOMAIN,
               messages: messages,
               stream: true,
             }),
