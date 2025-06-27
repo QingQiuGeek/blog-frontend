@@ -1,11 +1,12 @@
 // 全局共享数据示例
 import { DEFAULT_USER } from '@/constants/DefaultUser';
 import {
-  getLoginUserUsingGet,
-  loginUsingPost,
-  logoutUsingPost,
-  registerUsingPost,
+  getLoginUser,
+  login,
+  logout,
+  register,
 } from '@/services/blog/userController';
+
 import { formatTimestamp, setTokenWithExpiry } from '@/utils/utils';
 import { message } from 'antd';
 
@@ -39,7 +40,7 @@ export default {
   //effects是异步action，适合登录、退出逻辑
   effects: {
     *FetchLoginUser(_, { call, put }) {
-      const res: API.LoginUserVO = yield call(getLoginUserUsingGet); // 调用后端接口
+      const res: API.LoginUserVO = yield call(getLoginUser); // 调用后端接口
       // console.log('执行fetchLoginUser');
       if (res) {
         yield put({
@@ -57,7 +58,7 @@ export default {
         // console.log('LoginUser：' + stringify(payload));
         // 在此处处理异步请求（如登录接口请求）
         const res: API.LoginUserVO = yield call(
-          loginUsingPost,
+          login,
           payload.loginRequest as API.LoginRequest,
         );
         if (res) {
@@ -81,7 +82,7 @@ export default {
       try {
         // 在此处处理异步请求（如登录接口请求）
         const res: API.LoginUserVO = yield call(
-          registerUsingPost,
+          register,
           payload.registerRequest as API.RegisterRequest,
         ); // 假设 loginApi 是登录请求的 API 函数
         if (res) {
@@ -103,7 +104,7 @@ export default {
     *LogoutUser(_, { put, call }) {
       try {
         //请求后端删除token
-        const res: boolean = yield call(logoutUsingPost);
+        const res: boolean = yield call(logout);
         if (res) {
           yield put({
             type: 'RemoveLoginUser',

@@ -2,12 +2,12 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** addUser POST /api/admin/user/addUser */
-export async function addUserUsingPost(
+/** 此处后端没有提供注释 POST /admin/user/addUser */
+export async function addUser(
   body: API.AddUserDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseLong_>('/api/admin/user/addUser', {
+  return request<API.BRLong>('/admin/user/addUser', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,69 +17,60 @@ export async function addUserUsingPost(
   });
 }
 
-/** deleteUserById DELETE /api/admin/user/delete/${param0} */
-export async function deleteUserByIdUsingDelete(
+/** 此处后端没有提供注释 DELETE /admin/user/delete/${param0} */
+export async function deleteUserById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteUserByIdUsingDELETEParams,
+  params: API.deleteUserByIdParams,
   options?: { [key: string]: any },
 ) {
   const { userId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(`/api/admin/user/delete/${param0}`, {
+  return request<API.BRBoolean>(`/admin/user/delete/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** disableUser GET /api/admin/user/disable/${param0} */
-export async function disableUserUsingGet(
+/** 此处后端没有提供注释 GET /admin/user/disable/${param0} */
+export async function banUser(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.disableUserUsingGETParams,
+  params: API.banUserParams,
   options?: { [key: string]: any },
 ) {
   const { userId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(
-    `/api/admin/user/disable/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<API.BRBoolean>(`/admin/user/disable/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
-/** getByIdList POST /api/admin/user/getByIdList */
-export async function getByIdListUsingPost(
+/** 此处后端没有提供注释 POST /admin/user/getByIdList */
+export async function getByIdList(
   body: API.GetUserByIdListRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseListAdminUserVO_>(
-    '/api/admin/user/getByIdList',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<API.BRListAdminUserVO>('/admin/user/getByIdList', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data: body,
+    ...(options || {}),
+  });
 }
 
-/** getUserList POST /api/admin/user/getUserList */
-export async function getUserListUsingPost(
+/** 此处后端没有提供注释 POST /admin/user/getUserList */
+export async function getUserList(
   body: API.AdminUserQueryPageRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListAdminUserVO_>(
-    '/api/admin/user/getUserList',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<API.BRPageListAdminUserVO>('/admin/user/getUserList', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data: body,
+    ...(options || {}),
+  });
 }

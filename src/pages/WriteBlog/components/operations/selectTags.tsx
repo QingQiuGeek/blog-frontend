@@ -1,4 +1,4 @@
-import { getCategoriesAndTagsUsingGet } from '@/services/blog/categoryController';
+import { getCategoriesAndTags } from '@/services/blog/categoryController';
 import { Cascader, CascaderProps, message } from 'antd';
 import React, { useState } from 'react';
 
@@ -20,8 +20,7 @@ const SelectTags: React.FC<SelectTagsProps> = ({ onTagsChange, isDisable }) => {
     if (visible) {
       setLoadTag(true);
       try {
-        const res: API.BaseResponseListCategoryAndTags_ =
-          await getCategoriesAndTagsUsingGet();
+        const res: API.BRListCategoryAndTags = await getCategoriesAndTags();
         if (res) {
           // console.log(stringify(res));
           const convertedOptions = res.map((category) => {

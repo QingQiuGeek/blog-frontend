@@ -1,9 +1,9 @@
 import {
-  getPassageListUsingPost,
-  publishPassageUsingGet,
-  rejectPassageUsingGet,
+  getPassageList,
+  publishPassage,
+  rejectPassage,
 } from '@/services/blog/adminPassageController';
-import { deleteByPassageIdUsingDelete } from '@/services/blog/passageController';
+import { deleteByPassageId } from '@/services/blog/passageController';
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
@@ -22,9 +22,9 @@ type PassageItem = {
   viewNum: number;
   status: number;
 };
-const rejectPassage = async (passageId: number) => {
+const rejPassage = async (passageId: number) => {
   try {
-    const res: boolean = await rejectPassageUsingGet({
+    const res: API.BRBoolean = await rejectPassage({
       passageId: passageId,
     });
     if (res) {
@@ -36,9 +36,9 @@ const rejectPassage = async (passageId: number) => {
     message.error('审核异常：' + error);
   }
 };
-const publishPassage = async (passageId: number) => {
+const pubPassage = async (passageId: number) => {
   try {
-    const res: boolean = await publishPassageUsingGet({
+    const res: API.BRBoolean = await publishPassage({
       passageId: passageId,
     });
     if (res) {
@@ -61,7 +61,7 @@ const PassageManage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const deletePassage = async (passageId: number) => {
     try {
-      const res: boolean = await deleteByPassageIdUsingDelete({
+      const res: API.BRBoolean = await deleteByPassageId({
         passageId: passageId,
       });
       if (res) {
@@ -243,7 +243,7 @@ const PassageManage = () => {
                   size="small"
                   key={'ban'}
                   onClick={() => {
-                    rejectPassage(record.passageId);
+                    rejPassage(record.passageId);
                   }}
                   style={{ color: 'orange' }}
                 >
@@ -255,7 +255,7 @@ const PassageManage = () => {
                   size="small"
                   key={'ban'}
                   onClick={() => {
-                    publishPassage(record.passageId);
+                    pubPassage(record.passageId);
                   }}
                   style={{ color: 'green' }}
                 >
@@ -271,7 +271,7 @@ const PassageManage = () => {
                   size="small"
                   key={'ban'}
                   onClick={() => {
-                    rejectPassage(record.passageId);
+                    rejPassage(record.passageId);
                   }}
                   style={{ color: 'orange' }}
                 >
@@ -303,7 +303,7 @@ const PassageManage = () => {
                   size="small"
                   key={'ban'}
                   onClick={() => {
-                    publishPassage(record.passageId);
+                    pubPassage(record.passageId);
                   }}
                   style={{ color: 'green' }}
                 >
@@ -356,7 +356,9 @@ const PassageManage = () => {
           title: params?.title,
         };
         try {
-          const res = await getPassageListUsingPost(queryParam);
+          const res: API.BRPageListAdminPassageVO = await getPassageList(
+            queryParam,
+          );
           if (res && res.records) {
             setDataSource(res.records.flat());
             setTotal(res.total); //总记录数

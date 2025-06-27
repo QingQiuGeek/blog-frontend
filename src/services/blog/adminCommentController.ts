@@ -2,20 +2,17 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** getComments POST /api/admin/comment/getComments/ */
-export async function getCommentsUsingPost(
+/** 此处后端没有提供注释 POST /admin/comment/getComments/ */
+export async function getComments(
   body: API.AdminCommentPageRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListCommentVO_>(
-    '/api/admin/comment/getComments/',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<API.BRPageListCommentVO>('/admin/comment/getComments/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data: body,
+    ...(options || {}),
+  });
 }

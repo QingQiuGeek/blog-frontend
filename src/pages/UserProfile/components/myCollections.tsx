@@ -1,6 +1,6 @@
 import PassageContent from '@/pages/Home/components/passageSummary';
-import { collectPassageUsingPut } from '@/services/blog/passageController';
-import { myCollectPassageUsingPost } from '@/services/blog/userController';
+import { collectPassage } from '@/services/blog/passageController';
+import { myCollectPassage } from '@/services/blog/userController';
 import { formatTimestamp } from '@/utils/utils';
 import {
   ClockCircleOutlined,
@@ -31,11 +31,10 @@ const MyCollections = () => {
     setLoading(true);
 
     try {
-      const res: API.BaseResponsePageListPassageInfoVO_ =
-        await myCollectPassageUsingPost({
-          pageSize: pageSize,
-          currentPage: currentPage,
-        });
+      const res: API.BRPageListPassageInfoVO = await myCollectPassage({
+        pageSize: pageSize,
+        currentPage: currentPage,
+      });
       // console.log('res: ' + stringify(res));
       setCollects(res.records.flat()); // 更新 dataSource
       setTotal(res.total);
@@ -163,7 +162,7 @@ const MyCollections = () => {
     updatedData[passageIndex].isCollect = !updatedData[passageIndex].isCollect;
     setData(updatedData); // 更新数据
     try {
-      const res = await collectPassageUsingPut({
+      const res = await collectPassage({
         passageId: pid,
       });
       if (res) {

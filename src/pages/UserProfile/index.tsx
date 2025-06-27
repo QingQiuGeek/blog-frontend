@@ -25,7 +25,7 @@ export default () => {
   //   //获取我的粉丝列表
   //   const fetchMyFollowers = async () => {
   //     try {
-  //       const res: API.BaseResponseListUserVO_ = await myFollowersUsingGet();
+  //       const res: API.BRListUserVO_ = await myFollowersUsingGet();
   //       // 提取并转换数据为 DataItem[] 类型
   //       // const convertedData =
   //       //   res?.map((user) => ({
@@ -48,7 +48,7 @@ export default () => {
   //   //获取我的文章列表
   //   const fetchMyPassages = async () => {
   //     try {
-  //       const res: API.BaseResponseListPassageVO_ = await myPassagesUsingGet();
+  //       const res: API.BRListPassageVO_ = await myPassagesUsingGet();
   //       console.log('res: ' + stringify(res));
   //       setPassages(res);
   //     } catch (error) {
@@ -60,7 +60,7 @@ export default () => {
   //   //获取我的收藏列表
   //   const fetchMyCollects = async () => {
   //     try {
-  //       const res: API.BaseResponseListPassageVO_ =
+  //       const res: API.BRListPassageVO_ =
   //         await myCollectPassageUsingGet();
   //       console.log('res: ' + stringify(res));
   //       setCollects(res);
@@ -73,7 +73,7 @@ export default () => {
   //   //获取我的点赞列表
   //   const fetchMyThumbs = async () => {
   //     try {
-  //       const res: API.BaseResponseListPassageVO_ =
+  //       const res: API.BRListPassageVO_ =
   //         await myThumbPassageUsingGet();
   //       console.log('res: ' + stringify(res));
   //       setThumbs(res);
@@ -86,7 +86,7 @@ export default () => {
   //   //获取我的关注列表
   //   const fetchMyFollows = async () => {
   //     try {
-  //       const res: API.BaseResponseListUserVO_ = await myFollowUsingGet();
+  //       const res: API.BRListUserVO_ = await myFollowUsingGet();
   //       setFollows(res); // 更新 dataSource
   //     } catch (error) {
   //       message.error('我的关注列表获取失败' + error);

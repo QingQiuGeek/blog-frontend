@@ -1,6 +1,6 @@
 import { Typography } from 'antd';
 import '../css/index.css';
-const { Title, Paragraph, Text, Link } = Typography;
+const { Paragraph } = Typography;
 const PassageSummary = ({ children }: any) => {
   return (
     <div

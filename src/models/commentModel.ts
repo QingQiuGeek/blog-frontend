@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 全局共享数据示例
 
 import {
-  commentPassageUsingPost,
-  deleteCommentUsingPost,
-  getCommentByCursorUsingPost,
+  commentPassage,
+  deleteComment,
+  getCommentByCursor,
 } from '@/services/blog/commentController';
-import { myMessageUsingPost } from '@/services/blog/userController';
+import { myMessage } from '@/services/blog/userController';
 import { decrypt } from '@/utils/utils';
 import { message } from 'antd';
 
@@ -39,8 +40,8 @@ export default {
       }
       try {
         // console.log(payload);
-        const res: API.BaseResponsePageListCommentVO_ = yield call(
-          getCommentByCursorUsingPost,
+        const res: API.BRPageListCommentVO = yield call(
+          getCommentByCursor,
           payload,
         );
         if (res) {
@@ -64,7 +65,7 @@ export default {
     // 处理异步操作，提交评论
     *effectSubmitComment({ payload }: any, { call, put }) {
       try {
-        const res: number = yield call(commentPassageUsingPost, payload);
+        const res: number = yield call(commentPassage, payload);
         // console.log(res);
 
         if (res) {
@@ -92,7 +93,7 @@ export default {
       // console.log(payload);
 
       try {
-        const res: boolean = yield call(deleteCommentUsingPost, {
+        const res: boolean = yield call(deleteComment, {
           commentId: payload.commentId,
           passageId: payload.passageId,
         });
@@ -115,10 +116,7 @@ export default {
       // console.log('payload：' + payload);
       try {
         // console.log(payload);
-        const res: API.BaseResponsePageListCommentVO_ = yield call(
-          myMessageUsingPost,
-          payload,
-        );
+        const res: API.BRPageListCommentVO = yield call(myMessage, payload);
         if (res) {
           // console.log(stringify(res));
           const records = res.records.flat();

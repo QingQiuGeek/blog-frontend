@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import PassageSummary from '@/pages/Home/components/passageSummary';
-import { searchPassageUsingPost } from '@/services/blog/passageController';
+import { searchPassage } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import {
   ClockCircleOutlined,
@@ -37,14 +38,13 @@ const SearchList = () => {
   const getSearchList = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponsePageListPassageInfoVO_ =
-        await searchPassageUsingPost({
-          currentPage: currentPage,
-          pageSize: pageSize,
-          searchType: type,
-          id: Number(id) || 0,
-          searchText: text,
-        });
+      const res: API.BRPageListPassageInfoVO = await searchPassage({
+        currentPage: currentPage,
+        pageSize: pageSize,
+        searchType: type,
+        id: Number(id) || 0,
+        searchText: text,
+      });
       setSearchList(res.records.flat()); // 将二维数组转换为一维数组
       setTotal(res.total); //总记录数
       setLoading(false);

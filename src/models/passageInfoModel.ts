@@ -1,5 +1,5 @@
 // 全局共享数据示例
-import { getPassageInfoUsingGet } from '@/services/blog/passageController';
+import { getPassageInfo } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import { message } from 'antd';
 
@@ -27,7 +27,7 @@ export default {
       const pid = payload.passageId;
       try {
         // 调用后端接口请求数据
-        const response: API.PassageInfoVO = yield call(getPassageInfoUsingGet, {
+        const response: API.PassageInfoVO = yield call(getPassageInfo, {
           pid,
         }); // 假设我们有一个 getPassageInfo 的 API 请求
         if (response) {

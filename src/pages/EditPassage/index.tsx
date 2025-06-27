@@ -34,12 +34,12 @@ import dayjs from 'dayjs';
 import MarkExtension from 'markdown-it-mark';
 import { useEffect, useState } from 'react';
 
-import { getCategoriesAndTagsUsingGet } from '@/services/blog/categoryController';
+import { getCategoriesAndTags } from '@/services/blog/categoryController';
 import {
-  getEditPassageUsingGet,
-  nowPublishUsingPost,
-  savePassageUsingPost,
-  timePublishUsingPost,
+  getEditPassage,
+  nowPublish,
+  savePassage,
+  timePublish,
 } from '@/services/blog/passageController';
 import { useNavigate, useParams } from '@umijs/max';
 import { Emoji, ExportPDF, Mark, OriginalImg } from '@vavt/rt-extension';
@@ -82,7 +82,7 @@ export default () => {
   const [status, setStatus] = useState();
   const loadEditPassage = async (passageId: string) => {
     try {
-      const res: API.BaseResponseEditPassageVO_ = await getEditPassageUsingGet({
+      const res: API.BREditPassageVO = await getEditPassage({
         pid: passageId,
       });
       if (res) {
@@ -291,7 +291,7 @@ export default () => {
     // console.log(3);
 
     try {
-      const res: API.BaseResponseString_ = await savePassageUsingPost({
+      const res: API.BRString = await savePassage({
         summary: summary,
         title: title,
         content: text,
@@ -312,12 +312,12 @@ export default () => {
     }
   }, 1000);
 
-  const nowPublish = debounce(async () => {
+  const nowPub = debounce(async () => {
     if (check()) {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await nowPublishUsingPost({
+      const res: API.BRString = await nowPublish({
         summary: summary,
         title: title,
         content: text,
@@ -345,12 +345,12 @@ export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [publishTime, setPublishTime] = useState<number>();
 
-  const timePublish = debounce(async () => {
+  const timePub = debounce(async () => {
     if (check()) {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await timePublishUsingPost({
+      const res: API.BRString = await timePublish({
         summary: summary,
         title: title,
         content: text,
@@ -405,8 +405,7 @@ export default () => {
     if (visible) {
       setLoadTag(true);
       try {
-        const res: API.BaseResponseListCategoryAndTags_ =
-          await getCategoriesAndTagsUsingGet();
+        const res: API.BRListCategoryAndTags = await getCategoriesAndTags();
         if (res) {
           // console.log(stringify(res));
           const convertedOptions = res.map((category) => {
@@ -553,7 +552,7 @@ export default () => {
                 </Button>,
                 <Button
                   htmlType="button"
-                  onClick={nowPublish}
+                  onClick={nowPub}
                   key="now"
                   size="large"
                 >
@@ -653,7 +652,7 @@ export default () => {
         key="timeModal"
         title="选择定时发布时间"
         open={isModalOpen}
-        onOk={timePublish}
+        onOk={timePub}
         onCancel={() => setIsModalOpen(false)}
       >
         <div

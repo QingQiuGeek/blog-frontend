@@ -1,9 +1,11 @@
-import { SearchURL } from '@/constants/URLResources';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useSearchParams } from '@umijs/max';
 import { List, message } from 'antd';
 import { useEffect, useState } from 'react';
 type RecommendationVO = {
   url?: string;
   title?: string;
+  summary?: string;
 };
 export default () => {
   const [total, setTotal] = useState(0); // 数据总数，用于分页
@@ -12,56 +14,37 @@ export default () => {
   const [recommendations, setRecommendations] = useState<RecommendationVO[]>(
     [],
   );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const text = searchParams.get('text') || '';
 
-  const [recommendationLoading, setRecommendationLoading] =
-    useState<boolean>(false);
   let resultMap = new Map();
   // 发起请求并解析目标页面内容
-  const fetchAndParse = async () => {
+  const search = async () => {
     try {
-      // 1. 发起请求获取页面内容
-      const response = await fetch(SearchURL);
-      console.log(response);
-      const html = await response.text();
+      setLoading(true);
+      // 默认使用bing引擎
+      // const bingResults = await bingSearch(text);
+      console.log(bingResults);
 
-      // 2. 创建虚拟DOM解析器
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      console.log(doc);
-      // 3. 选择目标元素
-      const results = doc.querySelectorAll('#b_content .b_algo_group h2');
-
-      console.log(results);
-      results.forEach((item) => {
-        // 提取 a 标签的 href 属性作为 key
-        const link = item.querySelector('h2 a');
-        const key = link ? link.href : null;
-
-        // 提取 p 标签的内容作为 value
-        const caption = item.querySelector('.b_caption p');
-        const value = caption ? caption.innerText : null;
-
-        // 将有效数据添加到 Map 中
-        if (key && value) {
-          resultMap.set(key, value);
-        }
-      });
-      // 返回结果
-      return resultMap;
+      // 设置结果
+      setRecommendations(bingResults);
+      setTotal(bingResults.length);
     } catch (error) {
       message.error('搜索发现请求失败:' + error);
-      console.error('搜索发现请求失败:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchAndParse();
+    search();
   }, []);
   return (
     <List
       itemLayout="vertical"
       size="large"
-      loading={recommendationLoading}
+      loading={loading}
       pagination={{
         pageSizeOptions: [5, 10, 15],
         total: total,
@@ -78,6 +61,11 @@ export default () => {
         },
       }}
       dataSource={recommendations}
+      renderItem={(item) => (
+        <List.Item>
+          <List.Item.Meta title={item.title} description={item.summary} />
+        </List.Item>
+      )}
     />
   );
 };

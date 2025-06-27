@@ -1,4 +1,5 @@
-import { getCategoriesUsingPost } from '@/services/blog/categoryController';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { getCategories } from '@/services/blog/categoryController';
 import { history, useLocation } from '@umijs/max';
 import { Card, List, message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -15,14 +16,13 @@ const Category = () => {
   const location = useLocation();
   const [categories, setCategories] = useState<API.CategoryVO[]>();
   const page = new URLSearchParams(location.search).get('page');
-  const getCategories = async () => {
+  const getCategory = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponsePageListCategoryVO_ =
-        await getCategoriesUsingPost({
-          currentPage: currentPage,
-          pageSize: 9,
-        });
+      const res: API.BRPageListCategoryVO = await getCategories({
+        currentPage: currentPage,
+        pageSize: 9,
+      });
       if (res) {
         setTotal(res.total);
         setCategories(res.records.flat());
@@ -41,7 +41,7 @@ const Category = () => {
     } else {
       setCurrentPage(1);
     }
-    getCategories();
+    getCategory();
   }, [currentPage, page]);
 
   const handleClick = (item: API.CategoryVO) => {

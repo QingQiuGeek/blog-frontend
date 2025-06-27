@@ -1,4 +1,5 @@
-import { getCategoriesAndTagsUsingGet } from '@/services/blog/categoryController';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { getCategoriesAndTags } from '@/services/blog/categoryController';
 import { Cascader, CascaderProps, message } from 'antd';
 import { useState } from 'react';
 
@@ -17,8 +18,7 @@ const SelectTags = () => {
     if (visible) {
       setLoadTag(true);
       try {
-        const res: API.BaseResponseListCategoryAndTags_ =
-          await getCategoriesAndTagsUsingGet();
+        const res: API.BRListCategoryAndTags = await getCategoriesAndTags();
         if (res) {
           // console.log(stringify(res));
           const convertedOptions = res.map((category) => {

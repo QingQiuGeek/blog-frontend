@@ -1,8 +1,8 @@
 import {
-  collectPassageUsingPut,
-  getPassageContentByPassageIdUsingGet,
-  getPassageInfoUsingGet,
-  thumbPassageUsingPut,
+  collectPassage,
+  getPassageContentByPassageId,
+  getPassageInfo,
+  thumbPassage,
 } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import {
@@ -59,11 +59,9 @@ const PassageDetails = () => {
   }, [passageInfo]);
   const fetchPassageInfo = async () => {
     try {
-      const info: API.BaseResponsePassageInfoVO_ = await getPassageInfoUsingGet(
-        {
-          pid: passageId,
-        },
-      );
+      const info: API.BRPassageInfoVO = await getPassageInfo({
+        pid: passageId,
+      });
       setPassageInfo(info);
       // console.log('info' + info);
     } catch (error) {
@@ -72,8 +70,8 @@ const PassageDetails = () => {
   };
   const fetchPassageContent = async () => {
     try {
-      const content: API.PassageContentVO =
-        await getPassageContentByPassageIdUsingGet({
+      const content: API.BRPassageContentVO =
+        await getPassageContentByPassageId({
           uid: Number(authorId),
           pid: passageId,
         });
@@ -99,7 +97,7 @@ const PassageDetails = () => {
       message.info('未登录');
     } else {
       try {
-        const res = await collectPassageUsingPut({ passageId: passageId });
+        const res = await collectPassage({ passageId: passageId });
         if (res) {
           message.success(iscollect ? '取消收藏成功' : '收藏成功');
           setIsCollect(!iscollect);
@@ -116,7 +114,7 @@ const PassageDetails = () => {
       message.info('未登录');
     } else {
       try {
-        const res = await thumbPassageUsingPut({ passageId: passageId });
+        const res = await thumbPassage({ passageId: passageId });
         if (res) {
           message.success(isthumb ? '取消点赞成功' : '点赞成功');
           setIsThumb(!isthumb);

@@ -122,6 +122,8 @@ export const decrypt = (encryptedData: any) => {
   // console.log('decryptedData：' + decryptedData);
 };
 
+//setTokenWithExpiry+getTokenIsExpiry 该方案是把token和有效期一起加密存储到localStorage中，每次请求时调用getTokenIsExpiry()获取token并检查token是否过期，过期则remove并跳转登录页
+//问题是前端也要知道token的有效期，需要和后端保持一致
 // 存储token和登录态
 export const setTokenWithExpiry = (loginUser: API.LoginUserVO) => {
   // console.log('loginUser：' + stringify(loginUser));
@@ -163,6 +165,3 @@ export const getTokenIsExpiry = () => {
   }
   return tokenObj.token; // 如果没有过期，返回 token
 };
-
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));

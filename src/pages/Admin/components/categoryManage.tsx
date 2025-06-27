@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  addCategoryUsingPost,
-  deleteCategoryUsingPut,
-  getAdminCategoriesUsingPost,
-  updateCategoryUsingPost,
+  addCategory,
+  deleteCategory,
+  getAdminCategories,
+  updateCategory,
 } from '@/services/blog/adminCategoryController';
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
@@ -26,13 +27,13 @@ export default () => {
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const [pageSize, setPageSize] = useState<number>(10); // 默认每页10条
-  const deleteCategory = async (categoryId: number) => {
+  const delCategory = async (categoryId: number) => {
     if (!categoryId) {
       message.error('删除失败,categoryId不存在');
       return;
     }
     try {
-      const res: API.BaseResponseBoolean_ = await deleteCategoryUsingPut({
+      const res: API.BRBoolean = await deleteCategory({
         categoryId,
       });
       if (res) {
@@ -153,7 +154,7 @@ export default () => {
           key={'delete'}
           title="确定删除该类别吗?"
           onConfirm={() => {
-            deleteCategory(record.categoryId);
+            delCategory(record.categoryId);
           }}
         >
           <Button variant="filled" size="small" style={{ color: 'red' }}>
@@ -198,8 +199,9 @@ export default () => {
             categoryName: params?.categoryName,
           };
           try {
-            const res: API.BaseResponsePageListCategory_ =
-              await getAdminCategoriesUsingPost(queryParam);
+            const res: API.BRPageListCategory = await getAdminCategories(
+              queryParam,
+            );
             if (res && res.records) {
               setDataSource(res.records.flat());
               setTotal(res.total); //总记录数
@@ -255,7 +257,7 @@ export default () => {
               const updateTime = Date.now();
               const createTime = Date.now();
               try {
-                const res: API.BaseResponseLong_ = await addCategoryUsingPost({
+                const res: API.BRLong = await addCategory({
                   categoryName: data.categoryName,
                   description: data.description,
                   updateTime: updateTime,
@@ -302,8 +304,7 @@ export default () => {
               updateParam.updateTime = updateTime;
               // console.log(updateParam);
               try {
-                const res: API.BaseResponseBoolean_ =
-                  await updateCategoryUsingPost(updateParam);
+                const res: API.BRBoolean = await updateCategory(updateParam);
                 if (res) {
                   message.success('更新成功');
                   data.updateTime = updateTime;

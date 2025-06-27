@@ -50,7 +50,7 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://47.97.220.175:8081/api/v2/api-docs',
+      schemaPath: 'http://127.0.0.1:8081/api/v3/api-docs',
     },
   ],
 });

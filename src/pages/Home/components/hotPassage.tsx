@@ -1,4 +1,4 @@
-import { getTopPassagesUsingGet } from '@/services/blog/passageController';
+import { getTopPassages } from '@/services/blog/passageController';
 import { ProCard } from '@ant-design/pro-components';
 import { history, useDispatch } from '@umijs/max';
 import { Badge, Typography, message } from 'antd';
@@ -11,22 +11,21 @@ const HotPassage = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getTopPassages = async () => {
+  const getTopPassage = async () => {
     try {
-      const res: API.BaseResponseListPassageTitleVO_ =
-        await getTopPassagesUsingGet();
+      const res: API.BRListPassageTitleVO = await getTopPassages();
       if (res) {
         setTopPassages(res);
-        setLoading(false);
       } else {
         message.error('获取爆款文章失败');
       }
     } catch (error) {
       message.error('获取爆款文章异常：' + error);
     }
+    setLoading(false);
   };
   useEffect(() => {
-    getTopPassages();
+    getTopPassage();
   }, []);
   const dispatch = useDispatch();
 

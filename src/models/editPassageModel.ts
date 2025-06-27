@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 全局共享数据示例
-import { getPassageInfoUsingGet } from '@/services/blog/passageController';
+import { getPassageInfo } from '@/services/blog/passageController';
 import { message } from 'antd';
 
 export default {
@@ -19,7 +20,7 @@ export default {
         return;
       }
       try {
-        const response: API.PassageInfoVO = yield call(getPassageInfoUsingGet, {
+        const response: API.PassageInfoVO = yield call(getPassageInfo, {
           editPassageId,
         }); // 假设我们有一个 getPassageInfo 的 API 请求
         if (response) {

@@ -1,9 +1,10 @@
 import PassageContent from '@/pages/Home/components/passageSummary';
 import {
-  deleteByPassageIdUsingDelete,
-  setPassagePrivateUsingGet,
+  deleteByPassageId,
+  setPassagePrivate,
 } from '@/services/blog/passageController';
-import { myPassagesUsingPost } from '@/services/blog/userController';
+import { myPassages } from '@/services/blog/userController';
+
 import { formatTimestamp } from '@/utils/utils';
 import {
   ClockCircleOutlined,
@@ -37,11 +38,10 @@ const MyPassages = () => {
   const fetchMyPassages = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponsePageListPassageInfoVO_ =
-        await myPassagesUsingPost({
-          pageSize: pageSize,
-          currentPage: currentPage,
-        });
+      const res: API.BRPageListPassageInfoVO = await myPassages({
+        pageSize: pageSize,
+        currentPage: currentPage,
+      });
       // console.log('res: ' + stringify(res));
       setPassages(res.records.flat()); // 更新 dataSource
       setTotal(res.total);
@@ -112,7 +112,7 @@ const MyPassages = () => {
 
   const setPrivate = async (passageId: number) => {
     try {
-      const res: API.BaseResponseBoolean_ = await setPassagePrivateUsingGet({
+      const res: API.BRBoolean = await setPassagePrivate({
         passageId: passageId,
       });
       if (res) {
@@ -136,7 +136,7 @@ const MyPassages = () => {
   };
   const handleDelete = async (passageId: number) => {
     try {
-      const res = await deleteByPassageIdUsingDelete({
+      const res = await deleteByPassageId({
         passageId: passageId,
       });
       if (res) {

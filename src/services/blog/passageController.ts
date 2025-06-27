@@ -2,29 +2,29 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** collectPassage PUT /api/passage/collect/${param0} */
-export async function collectPassageUsingPut(
+/** 此处后端没有提供注释 PUT /passage/collect/${param0} */
+export async function collectPassage(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.collectPassageUsingPUTParams,
+  params: API.collectPassageParams,
   options?: { [key: string]: any },
 ) {
   const { passageId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(`/api/passage/collect/${param0}`, {
+  return request<API.BRBoolean>(`/passage/collect/${param0}`, {
     method: 'PUT',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** getPassageContentByPassageId GET /api/passage/content/${param1}/${param0} */
-export async function getPassageContentByPassageIdUsingGet(
+/** 此处后端没有提供注释 GET /passage/content/${param0}/${param1} */
+export async function getPassageContentByPassageId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getPassageContentByPassageIdUsingGETParams,
+  params: API.getPassageContentByPassageIdParams,
   options?: { [key: string]: any },
 ) {
-  const { pid: param0, uid: param1, ...queryParams } = params;
-  return request<API.BaseResponsePassageContentVO_>(
-    `/api/passage/content/${param1}/${param0}`,
+  const { uid: param0, pid: param1, ...queryParams } = params;
+  return request<API.BRPassageContentVO>(
+    `/passage/content/${param0}/${param1}`,
     {
       method: 'GET',
       params: { ...queryParams },
@@ -33,61 +33,40 @@ export async function getPassageContentByPassageIdUsingGet(
   );
 }
 
-/** deleteByPassageId DELETE /api/passage/delete/${param0} */
-export async function deleteByPassageIdUsingDelete(
+/** 此处后端没有提供注释 DELETE /passage/delete/${param0} */
+export async function deleteByPassageId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteByPassageIdUsingDELETEParams,
+  params: API.deleteByPassageIdParams,
   options?: { [key: string]: any },
 ) {
   const { passageId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(`/api/passage/delete/${param0}`, {
+  return request<API.BRBoolean>(`/passage/delete/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** getEditPassage GET /api/passage/editPassage/${param0} */
-export async function getEditPassageUsingGet(
+/** 此处后端没有提供注释 GET /passage/editPassage/${param0} */
+export async function getEditPassage(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getEditPassageUsingGETParams,
+  params: API.getEditPassageParams,
   options?: { [key: string]: any },
 ) {
   const { pid: param0, ...queryParams } = params;
-  return request<API.BaseResponseEditPassageVO_>(
-    `/api/passage/editPassage/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<API.BREditPassageVO>(`/passage/editPassage/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
-/** getHomePassageList POST /api/passage/homePassageList */
-export async function getHomePassageListUsingPost(
+/** 此处后端没有提供注释 POST /passage/homePassageList */
+export async function getHomePassageList(
   body: API.QueryPageRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListPassageInfoVO_>(
-    '/api/passage/homePassageList',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
-    },
-  );
-}
-
-/** nowPublish POST /api/passage/nowPublish */
-export async function nowPublishUsingPost(
-  body: API.ParentPassageDTO,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseBoolean_>('/api/passage/nowPublish', {
+  return request<API.BRPageListPassageInfoVO>('/passage/homePassageList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -97,46 +76,55 @@ export async function nowPublishUsingPost(
   });
 }
 
-/** getOtherPassagesByUserId GET /api/passage/otherPassages/${param0} */
-export async function getOtherPassagesByUserIdUsingGet(
+/** 此处后端没有提供注释 POST /passage/nowPublish */
+export async function nowPublish(
+  body: API.ParentPassageDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.BRBoolean>('/passage/nowPublish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 此处后端没有提供注释 GET /passage/otherPassages/${param0} */
+export async function getOtherPassagesByUserId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getOtherPassagesByUserIdUsingGETParams,
+  params: API.getOtherPassagesByUserIdParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.BaseResponseListPassageTitleVO_>(
-    `/api/passage/otherPassages/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<API.BRListPassageTitleVO>(`/passage/otherPassages/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
-/** getPassageInfo GET /api/passage/passageInfo/${param0} */
-export async function getPassageInfoUsingGet(
+/** 此处后端没有提供注释 GET /passage/passageInfo/${param0} */
+export async function getPassageInfo(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getPassageInfoUsingGETParams,
+  params: API.getPassageInfoParams,
   options?: { [key: string]: any },
 ) {
   const { pid: param0, ...queryParams } = params;
-  return request<API.BaseResponsePassageInfoVO_>(
-    `/api/passage/passageInfo/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<API.BRPassageInfoVO>(`/passage/passageInfo/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
-/** savePassage POST /api/passage/save */
-export async function savePassageUsingPost(
+/** 此处后端没有提供注释 POST /passage/save */
+export async function savePassage(
   body: API.ParentPassageDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseString_>('/api/passage/save', {
+  return request<API.BRString>('/passage/save', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -146,61 +134,55 @@ export async function savePassageUsingPost(
   });
 }
 
-/** searchPassage POST /api/passage/search */
-export async function searchPassageUsingPost(
+/** 此处后端没有提供注释 POST /passage/search */
+export async function searchPassage(
   body: API.SearchPassageRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListPassageInfoVO_>(
-    '/api/passage/search',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<API.BRPageListPassageInfoVO>('/passage/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data: body,
+    ...(options || {}),
+  });
 }
 
-/** setPassagePrivate GET /api/passage/setPrivate/${param0} */
-export async function setPassagePrivateUsingGet(
+/** 此处后端没有提供注释 GET /passage/setPrivate/${param0} */
+export async function setPassagePrivate(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.setPassagePrivateUsingGETParams,
+  params: API.setPassagePrivateParams,
   options?: { [key: string]: any },
 ) {
   const { passageId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(
-    `/api/passage/setPrivate/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<API.BRBoolean>(`/passage/setPrivate/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
-/** thumbPassage PUT /api/passage/thumb/${param0} */
-export async function thumbPassageUsingPut(
+/** 此处后端没有提供注释 PUT /passage/thumb/${param0} */
+export async function thumbPassage(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.thumbPassageUsingPUTParams,
+  params: API.thumbPassageParams,
   options?: { [key: string]: any },
 ) {
   const { passageId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(`/api/passage/thumb/${param0}`, {
+  return request<API.BRBoolean>(`/passage/thumb/${param0}`, {
     method: 'PUT',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** timePublish POST /api/passage/timePublish */
-export async function timePublishUsingPost(
+/** 此处后端没有提供注释 POST /passage/timePublish */
+export async function timePublish(
   body: API.ParentPassageDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/passage/timePublish', {
+  return request<API.BRBoolean>('/passage/timePublish', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -210,85 +192,40 @@ export async function timePublishUsingPost(
   });
 }
 
-/** getTopPassages GET /api/passage/topPassages */
-export async function getTopPassagesUsingGet(options?: { [key: string]: any }) {
-  return request<API.BaseResponseListPassageTitleVO_>(
-    '/api/passage/topPassages',
-    {
-      method: 'GET',
-      ...(options || {}),
-    },
-  );
-}
-
-/** uploadPassageCover POST /api/passage/uploadPassageCover */
-export async function uploadPassageCoverUsingPost(
-  body: {},
-  file?: File,
-  options?: { [key: string]: any },
-) {
-  const formData = new FormData();
-
-  if (file) {
-    formData.append('file', file);
-  }
-
-  Object.keys(body).forEach((ele) => {
-    const item = (body as any)[ele];
-
-    if (item !== undefined && item !== null) {
-      if (typeof item === 'object' && !(item instanceof File)) {
-        if (item instanceof Array) {
-          item.forEach((f) => formData.append(ele, f || ''));
-        } else {
-          formData.append(ele, JSON.stringify(item));
-        }
-      } else {
-        formData.append(ele, item);
-      }
-    }
-  });
-
-  return request<API.BaseResponseString_>('/api/passage/uploadPassageCover', {
-    method: 'POST',
-    data: formData,
-    requestType: 'form',
+/** 此处后端没有提供注释 GET /passage/topPassages */
+export async function getTopPassages(options?: { [key: string]: any }) {
+  return request<API.BRListPassageTitleVO>('/passage/topPassages', {
+    method: 'GET',
     ...(options || {}),
   });
 }
 
-/** uploadPassageImg POST /api/passage/uploadPassageImg */
-export async function uploadPassageImgUsingPost(
+/** 此处后端没有提供注释 POST /passage/uploadPassageCover */
+export async function uploadPassageCover(
   body: {},
-  file?: File,
   options?: { [key: string]: any },
 ) {
-  const formData = new FormData();
-
-  if (file) {
-    formData.append('file', file);
-  }
-
-  Object.keys(body).forEach((ele) => {
-    const item = (body as any)[ele];
-
-    if (item !== undefined && item !== null) {
-      if (typeof item === 'object' && !(item instanceof File)) {
-        if (item instanceof Array) {
-          item.forEach((f) => formData.append(ele, f || ''));
-        } else {
-          formData.append(ele, JSON.stringify(item));
-        }
-      } else {
-        formData.append(ele, item);
-      }
-    }
-  });
-
-  return request<API.BaseResponseString_>('/api/passage/uploadPassageImg', {
+  return request<API.BRString>('/passage/uploadPassageCover', {
     method: 'POST',
-    data: formData,
-    requestType: 'form',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 此处后端没有提供注释 POST /passage/uploadPassageImg */
+export async function uploadPassageImg(
+  body: {},
+  options?: { [key: string]: any },
+) {
+  return request<API.BRString>('/passage/uploadPassageImg', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }

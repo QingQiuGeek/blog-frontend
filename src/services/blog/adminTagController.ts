@@ -2,12 +2,12 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** addTag POST /api/admin/tag/addTag */
-export async function addTagUsingPost(
+/** 此处后端没有提供注释 POST /admin/tag/addTag */
+export async function addTag(
   body: API.TagDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseLong_>('/api/admin/tag/addTag', {
+  return request<API.BRLong>('/admin/tag/addTag', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,26 +17,26 @@ export async function addTagUsingPost(
   });
 }
 
-/** deleteTag PUT /api/admin/tag/delete/${param0} */
-export async function deleteTagUsingPut(
+/** 此处后端没有提供注释 PUT /admin/tag/delete/${param0} */
+export async function deleteTag(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteTagUsingPUTParams,
+  params: API.deleteTagParams,
   options?: { [key: string]: any },
 ) {
   const { tagId: param0, ...queryParams } = params;
-  return request<API.BaseResponseBoolean_>(`/api/admin/tag/delete/${param0}`, {
+  return request<API.BRBoolean>(`/admin/tag/delete/${param0}`, {
     method: 'PUT',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** getAdminTags POST /api/admin/tag/getTags */
-export async function getAdminTagsUsingPost(
+/** 此处后端没有提供注释 POST /admin/tag/getTags */
+export async function getAdminTags(
   body: API.AdminTagPageRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListTags_>('/api/admin/tag/getTags', {
+  return request<API.BRPageListTags>('/admin/tag/getTags', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -46,12 +46,12 @@ export async function getAdminTagsUsingPost(
   });
 }
 
-/** updateTag POST /api/admin/tag/updateTag */
-export async function updateTagUsingPost(
+/** 此处后端没有提供注释 POST /admin/tag/updateTag */
+export async function updateTag(
   body: API.TagDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/admin/tag/updateTag', {
+  return request<API.BRBoolean>('/admin/tag/updateTag', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import PassageContent from '@/pages/Home/components/passageSummary';
-import { thumbPassageUsingPut } from '@/services/blog/passageController';
-import { myThumbPassageUsingPost } from '@/services/blog/userController';
+import { thumbPassage } from '@/services/blog/passageController';
+import { myThumbPassage } from '@/services/blog/userController';
 import { formatTimestamp } from '@/utils/utils';
 import {
   ClockCircleOutlined,
@@ -29,11 +29,10 @@ const MyThumbs = () => {
   const fetchMyThumbs = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponsePageListPassageInfoVO_ =
-        await myThumbPassageUsingPost({
-          currentPage: currentPage,
-          pageSize: pageSize,
-        });
+      const res: API.BRPageListPassageInfoVO = await myThumbPassage({
+        currentPage: currentPage,
+        pageSize: pageSize,
+      });
       // console.log('res: ' + stringify(res));
       setThumbs(res.records.flat());
       setTotal(res.total);
@@ -143,7 +142,7 @@ const MyThumbs = () => {
     setData(updatedData); // 更新数据
     // 模拟后端请求延迟
     try {
-      const res = await thumbPassageUsingPut({
+      const res = await thumbPassage({
         passageId: pid,
       });
       if (res) {

@@ -4,213 +4,210 @@ declare namespace API {
   };
 
   type AdminCategoryPageRequest = {
-    categoryId?: number;
-    categoryName?: string;
     currentPage?: number;
-    endTime?: string;
     pageSize?: number;
+    categoryName?: string;
+    categoryId?: number;
     startTime?: string;
+    endTime?: string;
   };
 
   type AdminCommentPageRequest = {
-    authorId?: number;
-    commentId?: number;
-    commentUserId?: number;
-    content?: string;
     currentPage?: number;
-    endTime?: string;
     pageSize?: number;
+    commentId?: number;
+    content?: string;
+    authorId?: number;
+    commentUserId?: number;
     passageId?: number;
     startTime?: string;
+    endTime?: string;
   };
 
   type AdminPassageQueryPageRequest = {
-    authorId?: number;
     currentPage?: number;
-    endTime?: string;
     pageSize?: number;
+    title?: string;
+    authorId?: number;
     passageId?: number;
     startTime?: string;
-    title?: string;
+    endTime?: string;
   };
 
   type AdminPassageVO = {
-    accessTime?: string;
+    passageId?: number;
     authorId?: number;
     authorName?: string;
-    collectNum?: number;
-    commentNum?: number;
-    passageId?: number;
-    ptagsMap?: Record<string, any>;
-    status?: number;
-    thumbNum?: number;
     title?: string;
     viewNum?: number;
+    commentNum?: number;
+    thumbNum?: number;
+    collectNum?: number;
+    accessTime?: string;
+    status?: number;
+    ptagsMap?: Record<string, any>;
   };
 
   type AdminTagPageRequest = {
-    categoryId?: number;
     currentPage?: number;
-    endTime?: string;
     pageSize?: number;
-    startTime?: string;
-    tagId?: number;
     tagName?: string;
+    tagId?: number;
+    categoryId?: number;
+    startTime?: string;
+    endTime?: string;
   };
 
   type AdminUserQueryPageRequest = {
     currentPage?: number;
-    endTime?: string;
-    mail?: string;
     pageSize?: number;
-    startTime?: string;
-    userId?: number;
     userName?: string;
+    userId?: number;
+    endTime?: string;
+    startTime?: string;
   };
 
   type AdminUserVO = {
+    userId?: number;
     avatarUrl?: string;
-    createTime?: string;
+    sex?: number;
+    profiles?: string;
     interestTag?: string[];
     ipAddress?: string;
-    mail?: string;
-    profiles?: string;
-    role?: string;
-    sex?: number;
-    status?: number;
-    updateTime?: string;
-    userAccount?: string;
-    userId?: number;
     userName?: string;
+    role?: string;
+    createTime?: string;
+    updateTime?: string;
+    status?: number;
   };
 
-  type BaseResponseBoolean_ = {
+  type BRBoolean = {
     code?: number;
     data?: boolean;
     message?: string;
   };
 
-  type BaseResponseEditPassageVO_ = {
+  type BREditPassageVO = {
     code?: number;
     data?: EditPassageVO;
     message?: string;
   };
 
-  type BaseResponseListAdminUserVO_ = {
+  type BRListAdminUserVO = {
     code?: number;
     data?: AdminUserVO[];
     message?: string;
   };
 
-  type BaseResponseListCategoryAndTags_ = {
+  type BRListCategoryAndTags = {
     code?: number;
     data?: CategoryAndTags[];
     message?: string;
   };
 
-  type BaseResponseListPassageTitleVO_ = {
+  type BRListPassageTitleVO = {
     code?: number;
     data?: PassageTitleVO[];
     message?: string;
   };
 
-  type BaseResponseListTagVO_ = {
+  type BRListTagVO = {
     code?: number;
     data?: TagVO[];
     message?: string;
   };
 
-  type BaseResponseListUserVO_ = {
+  type BRListUserVO = {
     code?: number;
     data?: UserVO[];
     message?: string;
   };
 
-  type BaseResponseLoginUserVO_ = {
+  type BRLoginUserVO = {
     code?: number;
     data?: LoginUserVO;
     message?: string;
   };
 
-  type BaseResponseLong_ = {
+  type BRLong = {
     code?: number;
     data?: number;
     message?: string;
   };
 
-  type BaseResponsePageListAdminPassageVO_ = {
+  type BRPageListAdminPassageVO = {
     code?: number;
-    data?: PageListAdminPassageVO_;
+    data?: PageListAdminPassageVO;
     message?: string;
   };
 
-  type BaseResponsePageListAdminUserVO_ = {
+  type BRPageListAdminUserVO = {
     code?: number;
-    data?: PageListAdminUserVO_;
+    data?: PageListAdminUserVO;
     message?: string;
   };
 
-  type BaseResponsePageListCategory_ = {
+  type BRPageListCategory = {
     code?: number;
-    data?: PageListCategory_;
+    data?: PageListCategory;
     message?: string;
   };
 
-  type BaseResponsePageListCategoryVO_ = {
+  type BRPageListCategoryVO = {
     code?: number;
-    data?: PageListCategoryVO_;
+    data?: PageListCategoryVO;
     message?: string;
   };
 
-  type BaseResponsePageListCommentVO_ = {
+  type BRPageListCommentVO = {
     code?: number;
-    data?: PageListCommentVO_;
+    data?: PageListCommentVO;
     message?: string;
   };
 
-  type BaseResponsePageListPassageInfoVO_ = {
+  type BRPageListPassageInfoVO = {
     code?: number;
-    data?: PageListPassageInfoVO_;
+    data?: PageListPassageInfoVO;
     message?: string;
   };
 
-  type BaseResponsePageListTags_ = {
+  type BRPageListTags = {
     code?: number;
-    data?: PageListTags_;
+    data?: PageListTags;
     message?: string;
   };
 
-  type BaseResponsePageListUserVO_ = {
+  type BRPageListUserVO = {
     code?: number;
-    data?: PageListUserVO_;
+    data?: PageListUserVO;
     message?: string;
   };
 
-  type BaseResponsePassageContentVO_ = {
+  type BRPassageContentVO = {
     code?: number;
     data?: PassageContentVO;
     message?: string;
   };
 
-  type BaseResponsePassageInfoVO_ = {
+  type BRPassageInfoVO = {
     code?: number;
     data?: PassageInfoVO;
     message?: string;
   };
 
-  type BaseResponseString_ = {
+  type BRString = {
     code?: number;
     data?: string;
     message?: string;
   };
 
-  type BaseResponseUserInfoDataVO_ = {
+  type BRUserInfoDataVO = {
     code?: number;
     data?: UserInfoDataVO;
     message?: string;
   };
 
-  type BaseResponseUserVO_ = {
+  type BRUserVO = {
     code?: number;
     data?: UserVO;
     message?: string;
@@ -219,10 +216,10 @@ declare namespace API {
   type Category = {
     categoryId?: number;
     categoryName?: string;
-    createTime?: string;
     description?: string;
-    isDelete?: number;
+    createTime?: string;
     updateTime?: string;
+    isDelete?: number;
   };
 
   type CategoryAndTags = {
@@ -234,8 +231,8 @@ declare namespace API {
   type CategoryDTO = {
     categoryId?: number;
     categoryName?: string;
-    createTime?: number;
     description?: string;
+    createTime?: number;
     updateTime?: number;
   };
 
@@ -250,294 +247,234 @@ declare namespace API {
     description?: string;
   };
 
-  type collectPassageUsingPUTParams = {
-    /** passageId */
-    passageId: string;
+  type chatSseParams = {
+    msg: string;
   };
 
   type CommentDTO = {
-    authorId?: number;
-    commentTime?: number;
     content?: string;
     passageId?: string;
+    authorId?: number;
+    commentTime?: number;
   };
 
   type CommentVO = {
-    authorId?: number;
-    avatarUrl?: string;
-    canDelete?: boolean;
     commentId?: number;
-    commentTime?: string;
-    commentUserId?: number;
     content?: string;
-    ipAddress?: string;
+    commentUserId?: number;
     passageId?: number;
+    authorId?: number;
+    commentTime?: string;
     userName?: string;
+    avatarUrl?: string;
+    ipAddress?: string;
+    canDelete?: boolean;
   };
 
   type CursorCommentRequest = {
     authorId?: number;
+    passageId?: number;
     lastCommentId?: number;
     pageSize?: number;
-    passageId?: number;
-  };
-
-  type deleteByPassageIdUsingDELETEParams = {
-    /** passageId */
-    passageId: number;
-  };
-
-  type deleteCategoryUsingPUTParams = {
-    /** categoryId */
-    categoryId: number;
   };
 
   type DeleteCommentDTO = {
-    commentId?: number;
     passageId?: string;
-  };
-
-  type deleteTagUsingPUTParams = {
-    /** tagId */
-    tagId: number;
-  };
-
-  type deleteUserByIdUsingDELETEParams = {
-    /** userId */
-    userId: number;
-  };
-
-  type disableUserUsingGETParams = {
-    /** userId */
-    userId: number;
+    commentId?: number;
   };
 
   type EditPassageVO = {
-    content?: string;
     passageId?: number;
-    ptags?: number[];
-    status?: number;
-    summary?: string;
-    thumbnail?: string;
     title?: string;
-  };
-
-  type followUsingPUTParams = {
-    /** userId */
-    userId: number;
-  };
-
-  type getEditPassageUsingGETParams = {
-    /** pid */
-    pid: string;
-  };
-
-  type getOtherPassagesByUserIdUsingGETParams = {
-    /** uid */
-    uid: number;
-  };
-
-  type getPassageContentByPassageIdUsingGETParams = {
-    /** pid */
-    pid: string;
-    /** uid */
-    uid: number;
-  };
-
-  type getPassageInfoUsingGETParams = {
-    /** pid */
-    pid: string;
+    thumbnail?: string;
+    summary?: string;
+    content?: string;
+    status?: number;
+    ptags?: number[];
   };
 
   type GetUserByIdListRequest = {
     idList?: number[];
   };
 
-  type getUserInfoUsingGETParams = {
-    /** uid */
-    uid: number;
-  };
-
-  type getUserListByNameUsingGETParams = {
-    /** userName */
-    userName: string;
-  };
-
   type LoginRequest = {
-    mail?: string;
-    password?: string;
     token?: string;
+    password?: string;
+    mail?: string;
   };
 
   type LoginUserVO = {
-    avatarUrl?: string;
-    createTime?: string;
-    interestTag?: string[];
-    ipAddress?: string;
-    mail?: string;
-    profiles?: string;
-    role?: string;
-    sex?: number;
     token?: string;
     userId?: number;
+    avatarUrl?: string;
+    ipAddress?: string;
+    sex?: number;
+    profiles?: string;
+    interestTag?: string[];
     userName?: string;
+    mail?: string;
+    role?: string;
+    createTime?: string;
   };
 
   type OrderItem = {
-    asc?: boolean;
     column?: string;
+    asc?: boolean;
   };
 
-  type PageListAdminPassageVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListAdminPassageVO = {
     records?: AdminPassageVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListAdminPassageVO;
+    searchCount?: PageListAdminPassageVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListAdminUserVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListAdminUserVO = {
     records?: AdminUserVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListAdminUserVO;
+    searchCount?: PageListAdminUserVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListCategory_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListCategory = {
     records?: Category[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListCategory;
+    searchCount?: PageListCategory;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListCategoryVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListCategoryVO = {
     records?: CategoryVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListCategoryVO;
+    searchCount?: PageListCategoryVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListCommentVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListCommentVO = {
     records?: CommentVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListCommentVO;
+    searchCount?: PageListCommentVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListPassageInfoVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListPassageInfoVO = {
     records?: PassageInfoVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListPassageInfoVO;
+    searchCount?: PageListPassageInfoVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListTags_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListTags = {
     records?: Tags[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListTags;
+    searchCount?: PageListTags;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageListUserVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageListUserVO = {
     records?: UserVO[][];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageListUserVO;
+    searchCount?: PageListUserVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
   type ParentPassageDTO = {
-    content?: string;
     passageId?: string;
     publishTime?: number;
-    status?: number;
-    summary?: string;
-    tagIdList?: number[];
-    thumbnail?: string;
     title?: string;
+    content?: string;
+    thumbnail?: string;
+    summary?: string;
+    status?: number;
+    tagIdList?: number[];
   };
 
   type PassageContentVO = {
+    passageId?: string;
     authorId?: number;
     content?: string;
-    passageId?: string;
   };
 
   type PassageInfoVO = {
-    accessTime?: string;
+    isThumb?: boolean;
+    isCollect?: boolean;
+    passageId?: number;
     authorId?: number;
     authorName?: string;
     avatarUrl?: string;
-    collectNum?: number;
-    commentNum?: number;
-    isCollect?: boolean;
-    isPrivate?: number;
-    isThumb?: boolean;
-    passageId?: number;
-    ptagsMap?: Record<string, any>;
-    status?: number;
-    summary?: string;
-    thumbNum?: number;
-    thumbnail?: string;
     title?: string;
+    thumbnail?: string;
+    summary?: string;
+    status?: number;
     viewNum?: number;
+    commentNum?: number;
+    isPrivate?: number;
+    thumbNum?: number;
+    collectNum?: number;
+    accessTime?: string;
+    ptagsMap?: Record<string, any>;
   };
 
   type PassageTitleVO = {
-    authorId?: number;
     passageId?: number;
+    authorId?: number;
     title?: string;
-  };
-
-  type publishPassageUsingGETParams = {
-    /** passageId */
-    passageId: string;
   };
 
   type QueryPageRequest = {
@@ -550,44 +487,38 @@ declare namespace API {
   };
 
   type RegisterRequest = {
-    code?: string;
-    mail?: string;
     password?: string;
     rePassword?: string;
     userName?: string;
-  };
-
-  type rejectPassageUsingGETParams = {
-    /** passageId */
-    passageId: string;
+    mail?: string;
+    code?: string;
   };
 
   type SearchPassageRequest = {
-    currentPage?: number;
-    id?: number;
-    pageSize?: number;
     searchText?: string;
     searchType?: string;
+    id?: number;
+    currentPage?: number;
+    pageSize?: number;
   };
 
-  type setPassagePrivateUsingGETParams = {
-    /** passageId */
-    passageId: number;
+  type SseEmitter = {
+    timeout?: number;
   };
 
   type TagDTO = {
-    categoryId?: number;
-    createTime?: number;
     tagId?: number;
     tagName?: string;
+    categoryId?: number;
+    createTime?: number;
     updateTime?: number;
   };
 
   type Tags = {
-    categoryId?: number;
-    createTime?: string;
     tagId?: number;
     tagName?: string;
+    categoryId?: number;
+    createTime?: string;
     updateTime?: string;
   };
 
@@ -596,41 +527,35 @@ declare namespace API {
     tagName?: string;
   };
 
-  type thumbPassageUsingPUTParams = {
-    /** passageId */
-    passageId: string;
-  };
-
   type UpdateUserDTO = {
     avatarUrl?: string;
-    interestTag?: string;
-    ipAddress?: string;
-    profiles?: string;
     sex?: number;
+    profiles?: string;
+    interestTag?: string;
     userName?: string;
+    ipAddress?: string;
   };
 
   type UserInfoDataVO = {
-    collectNum?: number;
-    followNum?: number;
     followerNum?: number;
+    collectNum?: number;
     passageNum?: number;
+    followNum?: number;
     thumbNum?: number;
   };
 
   type UserVO = {
-    avatarUrl?: string;
-    createTime?: string;
-    followerNum?: number;
-    interestTag?: string[];
-    ipAddress?: string;
     isFollow?: boolean;
-    level?: number;
-    mail?: string;
-    phone?: string;
-    profiles?: string;
-    sex?: number;
     userId?: number;
+    avatarUrl?: string;
+    sex?: number;
+    profiles?: string;
+    interestTag?: string[];
+    followerNum?: number;
     userName?: string;
+    mail?: string;
+    ipAddress?: string;
+    level?: number;
+    createTime?: string;
   };
 }

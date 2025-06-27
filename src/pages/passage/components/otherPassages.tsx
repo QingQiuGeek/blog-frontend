@@ -1,5 +1,5 @@
 import HotPassage from '@/pages/Home/components/hotPassage';
-import { getOtherPassagesByUserIdUsingGet } from '@/services/blog/passageController';
+import { getOtherPassagesByUserId } from '@/services/blog/passageController';
 import { ProCard } from '@ant-design/pro-components';
 import { history, useDispatch, useParams } from '@umijs/max';
 import { Typography, message } from 'antd';
@@ -18,7 +18,7 @@ const OhterPassages = ({ setPassageNum }: any) => {
   useEffect(() => {
     const fetchAuthorPassages = async () => {
       try {
-        const res = await getOtherPassagesByUserIdUsingGet({
+        const res = await getOtherPassagesByUserId({
           uid: authorId,
         });
         // console.log('authorPassages: ' + stringify(res));

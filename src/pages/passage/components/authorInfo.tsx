@@ -1,7 +1,4 @@
-import {
-  followUsingPut,
-  getUserInfoUsingGet,
-} from '@/services/blog/userController';
+import { follow, getUserInfo } from '@/services/blog/userController';
 import { ProCard } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import type { DescriptionsProps } from 'antd';
@@ -28,7 +25,7 @@ const AuthorInfo = ({ passageNum }) => {
     //根据authorID获取作者信息
     const fetchAuthorInfo = async () => {
       try {
-        const res: API.UserVO = await getUserInfoUsingGet({
+        const res: API.UserVO = await getUserInfo({
           uid: authorId,
         });
         // console.log('authorInfo: ' + res);
@@ -70,7 +67,7 @@ const AuthorInfo = ({ passageNum }) => {
       setLoading(true); // 开始加载状态
       try {
         //请求后端
-        const res = await followUsingPut({
+        const res = await follow({
           userId: authorId,
         });
         if (res) {

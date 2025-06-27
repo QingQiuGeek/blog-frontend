@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from '@/constants/Common';
 import { LOGIN_LOGO } from '@/constants/URLResources';
-import { sendRegisterCodeUsingPost } from '@/services/blog/userController';
+import { sendRegisterCode } from '@/services/blog/userController';
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import {
   LoginForm,
@@ -94,7 +95,7 @@ export default ({ onClose }: any) => {
   const getCaptcha = async (email: string) => {
     setCaptchaLoading(true);
     try {
-      await sendRegisterCodeUsingPost({
+      await sendRegisterCode({
         mail: email,
       });
       message.success('验证码发送成功，请注意邮箱查收');

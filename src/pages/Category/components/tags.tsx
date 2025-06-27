@@ -1,4 +1,4 @@
-import { getRandomTagsUsingGet } from '@/services/blog/tagController';
+import { getRandomTags } from '@/services/blog/tagController';
 import { getRandomColor } from '@/utils/utils';
 import { ProCard } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
@@ -11,7 +11,7 @@ const Tags = () => {
 
   useEffect(() => {
     const loadRandomTags = async () => {
-      const res: API.BaseResponseListTagVO_ = await getRandomTagsUsingGet();
+      const res: API.BRListTagVO = await getRandomTags();
       try {
         if (res) {
           // console.log(stringify(res));

@@ -7,20 +7,22 @@ import * as adminCommentController from './adminCommentController';
 import * as adminPassageController from './adminPassageController';
 import * as adminTagController from './adminTagController';
 import * as adminUserController from './adminUserController';
+import * as aiController from './aiController';
 import * as categoryController from './categoryController';
 import * as commentController from './commentController';
 import * as passageController from './passageController';
 import * as tagController from './tagController';
 import * as userController from './userController';
 export default {
-  adminCategoryController,
-  adminCommentController,
-  adminPassageController,
-  adminTagController,
-  adminUserController,
-  categoryController,
-  commentController,
-  passageController,
-  tagController,
   userController,
+  passageController,
+  adminTagController,
+  adminCategoryController,
+  commentController,
+  categoryController,
+  adminUserController,
+  adminPassageController,
+  adminCommentController,
+  tagController,
+  aiController,
 };

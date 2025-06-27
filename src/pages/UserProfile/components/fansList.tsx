@@ -1,7 +1,4 @@
-import {
-  followUsingPut,
-  myFollowersUsingPost,
-} from '@/services/blog/userController';
+import { follow, myFollowers } from '@/services/blog/userController';
 import { Link, history } from '@umijs/max';
 import { Avatar, Button, Flex, List, Tag, message } from 'antd';
 import { debounce } from 'lodash';
@@ -19,7 +16,7 @@ const FansList = () => {
   const fetchMyFollowers = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponseListUserVO_ = await myFollowersUsingPost({
+      const res: API.BRListUserVO = await myFollowers({
         pageSize: pageSize,
         currentPage: currentPage,
       });
@@ -97,7 +94,7 @@ const FansList = () => {
     setData(updatedData); // 更新关注的状态
 
     try {
-      const res = await followUsingPut({
+      const res = await follow({
         userId: uid,
       });
       if (res) {

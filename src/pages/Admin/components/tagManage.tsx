@@ -1,10 +1,11 @@
 import {} from '@/services/blog/adminCategoryController';
 import {
-  addTagUsingPost,
-  deleteTagUsingPut,
-  getAdminTagsUsingPost,
-  updateTagUsingPost,
+  addTag,
+  deleteTag,
+  getAdminTags,
+  updateTag,
 } from '@/services/blog/adminTagController';
+
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { EditableProTable } from '@ant-design/pro-components';
@@ -27,13 +28,13 @@ export default () => {
   const [total, setTotal] = useState(0); // 数据总数，用于分页
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const [pageSize, setPageSize] = useState<number>(10); // 默认每页10条
-  const deleteTag = async (tagId: number) => {
+  const delTag = async (tagId: number) => {
     if (!tagId) {
       message.error('删除失败,tagId不存在');
       return;
     }
     try {
-      const res: API.BaseResponseBoolean_ = await deleteTagUsingPut({
+      const res: API.BRBoolean = await deleteTag({
         tagId,
       });
       if (res) {
@@ -153,7 +154,7 @@ export default () => {
           key={'delete'}
           title="确定删除该标签吗?"
           onConfirm={() => {
-            deleteTag(record.tagId);
+            delTag(record.tagId);
           }}
         >
           <Button variant="filled" size="small" style={{ color: 'red' }}>
@@ -198,8 +199,7 @@ export default () => {
             tagName: params?.tagName,
           };
           try {
-            const res: API.BaseResponsePageListCategory_ =
-              await getAdminTagsUsingPost(queryParam);
+            const res: API.BRPageListCategory = await getAdminTags(queryParam);
             if (res && res.records) {
               setDataSource(res.records.flat());
               setTotal(res.total); //总记录数
@@ -255,7 +255,7 @@ export default () => {
               const updateTime = Date.now();
               const createTime = Date.now();
               try {
-                const res: API.BaseResponseLong_ = await addTagUsingPost({
+                const res: API.BRLong = await addTag({
                   tagName: data.tagName,
                   updateTime: updateTime,
                   createTime: createTime,
@@ -295,9 +295,7 @@ export default () => {
               updateParam.updateTime = updateTime;
               // console.log(updateParam);
               try {
-                const res: API.BaseResponseBoolean_ = await updateTagUsingPost(
-                  updateParam,
-                );
+                const res: API.BRBoolean = await updateTag(updateParam);
                 if (res) {
                   message.success('更新成功');
                   data.updateTime = updateTime;

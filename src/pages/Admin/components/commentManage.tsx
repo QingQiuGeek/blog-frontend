@@ -1,5 +1,6 @@
-import { getCommentsUsingPost } from '@/services/blog/adminCommentController';
-import { deleteCommentUsingPost } from '@/services/blog/commentController';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { getComments } from '@/services/blog/adminCommentController';
+import { deleteComment } from '@/services/blog/commentController';
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
@@ -26,9 +27,9 @@ const CommentManage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1); // 保存当前页
   const [pageSize, setPageSize] = useState<number>(10); // 默认每页10条
   const [loading, setLoading] = useState<boolean>(true);
-  const deleteComment = async (commentId: number, passageId: string) => {
+  const delComment = async (commentId: number, passageId: string) => {
     try {
-      const res: API.BaseResponseBoolean_ = await deleteCommentUsingPost({
+      const res: API.BRBoolean = await deleteComment({
         commentId: commentId,
         passageId: passageId,
       });
@@ -162,7 +163,7 @@ const CommentManage = () => {
               // TODO 后期可以加上驳回、删除理由功能
               title="确定删除该评论吗?"
               onConfirm={() => {
-                deleteComment(record.commentId, record.passageId);
+                delComment(record.commentId, record.passageId);
               }}
             >
               <Button variant="filled" size="small" style={{ color: 'red' }}>
@@ -201,8 +202,7 @@ const CommentManage = () => {
             : undefined,
         };
         try {
-          const res: API.BaseResponsePageListCommentVO_ =
-            await getCommentsUsingPost(queryParam);
+          const res: API.BRPageListCommentVO = await getComments(queryParam);
           if (res && res.records) {
             setDataSource(res.records.flat());
             setTotal(res.total); //总记录数

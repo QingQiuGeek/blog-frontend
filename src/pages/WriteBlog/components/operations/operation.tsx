@@ -1,7 +1,7 @@
 import {
-  nowPublishUsingPost,
-  savePassageUsingPost,
-  timePublishUsingPost,
+  nowPublish,
+  savePassage,
+  timePublish,
 } from '@/services/blog/passageController';
 import {
   ProCard,
@@ -82,7 +82,7 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await savePassageUsingPost({
+      const res: API.BRString = await savePassage({
         summary: summary,
         title: getTitle,
         content: getContent,
@@ -102,12 +102,12 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
     }
   }, 1000);
 
-  const nowPublish = debounce(async () => {
+  const nowPub = debounce(async () => {
     if (check()) {
       return;
     }
     try {
-      const res: API.BaseResponseString_ = await nowPublishUsingPost({
+      const res: API.BRString = await nowPublish({
         summary: summary,
         title: getTitle,
         content: getContent,
@@ -134,13 +134,13 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [publishTime, setPublishTime] = useState<number>();
 
-  const timePublish = debounce(async () => {
+  const timePub = debounce(async () => {
     if (check()) {
       return;
     }
 
     try {
-      const res: API.BaseResponseString_ = await timePublishUsingPost({
+      const res: API.BRString = await timePublish({
         summary: summary,
         title: getTitle,
         content: getContent,
@@ -212,7 +212,7 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
               </Button>,
               <Button
                 htmlType="button"
-                onClick={nowPublish}
+                onClick={nowPub}
                 disabled={isDisable}
                 key="now"
                 size="large"
@@ -223,7 +223,7 @@ const Operation: React.FC<TitleProps> = ({ getTitle, getContent }) => {
                 key="timeModal"
                 title="选择定时发布时间"
                 open={isModalOpen}
-                onOk={timePublish}
+                onOk={timePub}
                 onCancel={() => setIsModalOpen(false)}
               >
                 <div

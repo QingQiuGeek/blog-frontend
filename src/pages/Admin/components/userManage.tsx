@@ -1,7 +1,7 @@
 import {
-  deleteUserByIdUsingDelete,
-  disableUserUsingGet,
-  getUserListUsingPost,
+  banUser,
+  deleteUserById,
+  getUserList,
 } from '@/services/blog/adminUserController';
 import { validateNum } from '@/utils/utils';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
@@ -35,9 +35,9 @@ const UserManage = () => {
   //   setPageSize(size);
   // }, [location.search]);
 
-  const disableUserById = async (uid: number, isDisabled: boolean) => {
+  const disUserById = async (uid: number, isDisabled: boolean) => {
     try {
-      const res = await disableUserUsingGet({
+      const res = await banUser({
         userId: uid,
       });
       if (res) {
@@ -54,10 +54,10 @@ const UserManage = () => {
       message.error('操作失败：' + error);
     }
   };
-  const deleteUserById = async (uid: number) => {
+  const delUserById = async (uid: number) => {
     // console.log(uid);
     try {
-      const res = await deleteUserByIdUsingDelete({
+      const res = await deleteUserById({
         userId: uid,
       });
       if (res) {
@@ -198,14 +198,14 @@ const UserManage = () => {
             variant="filled"
             size="small"
             key={'ban'}
-            onClick={() => disableUserById(uid, isDisabled)}
+            onClick={() => disUserById(uid, isDisabled)}
           >
             {isDisabled ? '禁用' : '解禁'}
           </Button>,
           <Popconfirm
             key={'delete'}
             title="确定删除该用户吗?"
-            onConfirm={() => deleteUserById(record.userId)}
+            onConfirm={() => delUserById(record.userId)}
           >
             <Button variant="filled" size="small" style={{ color: 'red' }}>
               删除
@@ -248,7 +248,7 @@ const UserManage = () => {
           userName: params?.userName,
         };
         try {
-          const res = await getUserListUsingPost(queryParam);
+          const res = await getUserList(queryParam);
           if (res && res.records) {
             setDataSource(res.records.flat());
             setTotal(res.total); //总记录数

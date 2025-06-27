@@ -1,7 +1,4 @@
-import {
-  followUsingPut,
-  myFollowUsingPost,
-} from '@/services/blog/userController';
+import { follow, myFollow } from '@/services/blog/userController';
 import { Link, history } from '@umijs/max';
 import { Avatar, Button, Flex, List, Tag, message } from 'antd';
 import { debounce } from 'lodash';
@@ -18,7 +15,7 @@ const FollowsList = () => {
   const fetchMyFollows = async () => {
     setLoading(true);
     try {
-      const res: API.BaseResponseListUserVO_ = await myFollowUsingPost({
+      const res: API.BRListUserVO = await myFollow({
         pageSize: pageSize,
         currentPage: currentPage,
       });
@@ -100,7 +97,7 @@ const FollowsList = () => {
     }
     try {
       // 模拟后端请求延迟
-      const res = await followUsingPut({
+      const res = await follow({
         userId: uid,
       });
       if (res) {

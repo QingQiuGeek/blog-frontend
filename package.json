@@ -1,5 +1,6 @@
 {
   "name": "blog",
+  "version": "1.0.0",
   "private": true,
   "author": "Smile <3343759238@qq.com>",
   "scripts": {

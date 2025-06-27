@@ -1,4 +1,4 @@
-import { getHomePassageListUsingPost } from '@/services/blog/passageController';
+import { getHomePassageList } from '@/services/blog/passageController';
 import { formatTimestamp } from '@/utils/utils';
 import {
   ClockCircleOutlined,
@@ -40,24 +40,23 @@ const PassageList = () => {
     }
   }, [currentPage, page]);
 
-  const getHomePassageList = async () => {
+  const getPassageList = async () => {
     try {
       setLoading(true);
-      const res: API.BaseResponsePageListPassageInfoVO_ =
-        await getHomePassageListUsingPost({
-          currentPage: currentPage,
-          pageSize: pageSize,
-        });
+      const res: API.BRPageListPassageInfoVO = await getHomePassageList({
+        currentPage: currentPage,
+        pageSize: pageSize,
+      });
       setHomePassageList(res.records.flat()); // 将二维数组转换为一维数组
       setTotal(res.total); //总记录数
-      setLoading(false);
     } catch (e) {
       message.error('获取首页文章列表失败：' + e);
     }
+    setLoading(false);
   };
   //页码或每页条数变化时重新加载数据
   useEffect(() => {
-    getHomePassageList();
+    getPassageList();
   }, [currentPage, pageSize]);
 
   const data = homePassageList.map((passage: API.PassageInfoVO) => ({

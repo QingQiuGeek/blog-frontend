@@ -1,10 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DEFAULT_USER } from '@/constants/DefaultUser';
-import { getCategoriesAndTagsUsingGet } from '@/services/blog/categoryController';
-import {
-  getLoginUserUsingGet,
-  getUserInfoDataUsingGet,
-  updateUserUsingPost,
-} from '@/services/blog/userController';
+import { getCategoriesAndTags } from '@/services/blog/categoryController';
+import { getUserInfoData, updateUser } from '@/services/blog/userController';
+
 import { formatTimestamp, getTokenIsExpiry } from '@/utils/utils';
 import { SettingTwoTone } from '@ant-design/icons';
 import {
@@ -68,7 +66,7 @@ const UserInfo = () => {
   // const loginUserId = LoginUserInfo?.userId;
   const fetchData = async () => {
     try {
-      const res: API.UserInfoDataVO = await getUserInfoDataUsingGet();
+      const res: API.UserInfoDataVO = await getUserInfoData();
       // console.log('UserData: ' + stringify(res));
       setUserData(res);
     } catch (error) {
@@ -79,7 +77,7 @@ const UserInfo = () => {
     setLoading(true);
 
     try {
-      const res: API.LoginUserVO = await getLoginUserUsingGet();
+      const res: API.LoginUserVO = await getLoginUser();
       if (res) {
         setLoginUser(res);
         setLoading(false);
@@ -317,9 +315,7 @@ const UserInfo = () => {
     // console.log('updatedFields：' + stringify(updatedFields));
     setConfirmLoading(true);
     try {
-      const res: API.BaseResponseBoolean_ = await updateUserUsingPost(
-        updatedFields,
-      );
+      const res: API.BRBoolean = await updateUser(updatedFields);
       if (res) {
         message.success('信息修改成功');
 
@@ -377,8 +373,7 @@ const UserInfo = () => {
     if (visible) {
       setLoadTag(true);
       try {
-        const res: API.BaseResponseListCategoryAndTags_ =
-          await getCategoriesAndTagsUsingGet();
+        const res: API.BRListCategoryAndTags = await getCategoriesAndTags();
         if (res) {
           // console.log(stringify(res));
           const convertedOptions = res.map((category) => {

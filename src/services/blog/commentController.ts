@@ -2,12 +2,12 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** commentPassage POST /api/comment */
-export async function commentPassageUsingPost(
+/** 此处后端没有提供注释 POST /comment */
+export async function commentPassage(
   body: API.CommentDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseLong_>('/api/comment', {
+  return request<API.BRLong>('/comment', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,12 +17,12 @@ export async function commentPassageUsingPost(
   });
 }
 
-/** deleteComment POST /api/comment/delete */
-export async function deleteCommentUsingPost(
+/** 此处后端没有提供注释 POST /comment/delete */
+export async function deleteComment(
   body: API.DeleteCommentDTO,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/comment/delete', {
+  return request<API.BRBoolean>('/comment/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,20 +32,17 @@ export async function deleteCommentUsingPost(
   });
 }
 
-/** getCommentByCursor POST /api/comment/getCommentByCursor */
-export async function getCommentByCursorUsingPost(
+/** 此处后端没有提供注释 POST /comment/getCommentByCursor */
+export async function getCommentByCursor(
   body: API.CursorCommentRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageListCommentVO_>(
-    '/api/comment/getCommentByCursor',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<API.BRPageListCommentVO>('/comment/getCommentByCursor', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data: body,
+    ...(options || {}),
+  });
 }
