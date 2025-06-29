@@ -11,7 +11,7 @@ interface ResponseStructure {
 //umi4使用了axios，https://axios-http.com/docs/interceptors
 //umi3是umi-request ，https://github.com/umijs/umi-request#request-options
 export const requestConfig: RequestConfig = {
-  baseURL: 'http://127.0.0.1:8081/api',
+  baseURL: 'http://47.97.220.175:8081/api',
   withCredentials: true,
   // timeout: 5000,
   // 请求拦截器
@@ -30,7 +30,7 @@ export const requestConfig: RequestConfig = {
       // let token: string;
       if (token) {
         // token = decrypt(tokenEncrypt);
-        config.headers['authorization'] = token;
+        config.headers['Authorization'] = token;
       }
       // 如果未过期，输出 token；如果已过期，输出 null
       //token存在就带上token，不存在就不携带

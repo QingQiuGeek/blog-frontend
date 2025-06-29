@@ -140,12 +140,12 @@ export const setTokenWithExpiry = (loginUser: API.LoginUserVO) => {
   const encryptToken = encrypt(item);
   // console.log('encryptToken');
 
-  localStorage.setItem('authorization', encryptToken);
+  localStorage.setItem('Authorization', encryptToken);
 };
 
 // 获取 token 并检查是否过期，如果过期就删除
 export const getTokenIsExpiry = () => {
-  const encryptToken = localStorage.getItem('authorization');
+  const encryptToken = localStorage.getItem('Authorization');
   if (!encryptToken) {
     return null; // 如果没有 token，返回 null
   }
@@ -155,7 +155,7 @@ export const getTokenIsExpiry = () => {
 
   // 检查 token 是否过期
   if (currentTime > tokenObj.expiry) {
-    localStorage.removeItem('authorization'); // 如果过期了，删除 loginUser
+    localStorage.removeItem('Authorization'); // 如果过期了，删除 loginUser
     localStorage.removeItem('loginUser'); // 如果过期了，删除 token
     setTimeout(() => {
       window.location.reload();

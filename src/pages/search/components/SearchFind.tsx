@@ -38,7 +38,7 @@ export default () => {
   };
 
   useEffect(() => {
-    search();
+    // search();
   }, []);
   return (
     <List

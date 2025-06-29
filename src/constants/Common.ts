@@ -14,3 +14,5 @@ export const USERNAME_REGEX = /^[\u4E00-\u9FA5A-Za-z0-9_]{2,6}$/;
 
 // 定义 AES 密钥
 export const SECRET_KEY = 'qazedctgbujmyhnrfvwsxokmuhbtfces';
+
+export const BASEURL = 'http://47.97.220.175:8081';

@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DEFAULT_USER } from '@/constants/DefaultUser';
+import { history } from '@umijs/max';
+
 import { getCategoriesAndTags } from '@/services/blog/categoryController';
-import { getUserInfoData, updateUser } from '@/services/blog/userController';
+import {
+  getLoginUser,
+  getUserInfoData,
+  updateUser,
+} from '@/services/blog/userController';
 
 import { formatTimestamp, getTokenIsExpiry } from '@/utils/utils';
 import { SettingTwoTone } from '@ant-design/icons';
@@ -67,20 +73,16 @@ const UserInfo = () => {
   const fetchData = async () => {
     try {
       const res: API.UserInfoDataVO = await getUserInfoData();
-      // console.log('UserData: ' + stringify(res));
       setUserData(res);
     } catch (error) {
       message.error('个人数据获取失败' + error);
     }
   };
-  const getLoginUser = async () => {
-    setLoading(true);
-
+  const getConLoginUser = async () => {
     try {
       const res: API.LoginUserVO = await getLoginUser();
       if (res) {
         setLoginUser(res);
-        setLoading(false);
       } else {
         message.error('获取登录用户信息失败');
       }
@@ -89,11 +91,8 @@ const UserInfo = () => {
     }
   };
   useEffect(() => {
-    //loginUser信息保存在浏览器中无法实时获取到用户个人基本信息，因为此时的loginUser是从localStorage中获取，拿到的一直是老数据
+    setLoading(true);
     const loginUserEncrypt = localStorage.getItem('loginUser');
-    // if (loginUserEncrypt) {
-    //   setLoginUser(decrypt(loginUserEncrypt));
-    // }
     if (!loginUserEncrypt) {
       //未登录就是默认用户
       message.info({
@@ -106,8 +105,9 @@ const UserInfo = () => {
     } else {
       //获取粉丝、文章收藏量、作品数量、关注数量、点赞数量...
       fetchData();
-      getLoginUser();
+      getConLoginUser();
     }
+    setLoading(false);
   }, []);
 
   const userItems: DescriptionsProps['items'] = [
@@ -173,7 +173,8 @@ const UserInfo = () => {
       setOpen(true);
       setFormData({});
     } else {
-      message.info('请登录');
+      message.info('请重新登录');
+      history.replace('/home');
     }
   };
   const [isUploadVisible, setIsUploadVisible] = useState(false);
@@ -207,7 +208,7 @@ const UserInfo = () => {
             .then((res: any) => rev(res))
             .catch((error: any) => rej(error));
         } else {
-          message.warning('请登录');
+          message.info('请重新登录');
         }
       });
       if (res.data.code === 200) {
@@ -309,10 +310,7 @@ const UserInfo = () => {
         ...updatedFields,
         interestTag: JSON.stringify(result),
       };
-
-      // setUserTags(result);
     }
-    // console.log('updatedFields：' + stringify(updatedFields));
     setConfirmLoading(true);
     try {
       const res: API.BRBoolean = await updateUser(updatedFields);
